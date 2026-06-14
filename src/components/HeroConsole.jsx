@@ -1,81 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import DecryptText from './DecryptText';
 
 export default function HeroConsole() {
-  const [booting, setBooting] = useState(true);
-  const [logs, setLogs] = useState([]);
-  const [showMain, setShowMain] = useState(false);
-
-  useEffect(() => {
-    const logLines = [
-      'SYS_INIT: Booting Cyber Command Center...',
-      'NET_STATUS: Tunneling via node_proxy_l2... [ SECURE ]',
-      'AUTH_AGENT: Verification key loaded... [ SEC_L3 ]',
-      'SYS_LOAD: Parsing threat_hunting_matrix.json...',
-      'SYS_LOAD: Initializing radar grid arrays...',
-      'SYSTEM STATUS: READY.'
-    ];
-
-    let currentLogIndex = 0;
-    const interval = setInterval(() => {
-      if (currentLogIndex < logLines.length) {
-        setLogs(prev => [...prev, logLines[currentLogIndex]]);
-        currentLogIndex++;
-      } else {
-        clearInterval(interval);
-        setTimeout(() => {
-          setBooting(false);
-          setTimeout(() => {
-            setShowMain(true);
-          }, 300);
-        }, 500);
-      }
-    }, 200);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  if (booting) {
-    return (
-      <div className="min-h-[60vh] sm:min-h-[70vh] flex flex-col justify-center px-6 sm:px-12 md:px-24 py-16 bg-[#0B0F19]/20 relative z-10 font-mono">
-        <div className="max-w-3xl w-full border border-[#00F0FF]/15 bg-black/80 p-6 rounded-2xl shadow-[0_0_30px_rgba(0,240,255,0.03)] text-neutral-300 space-y-3 relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#00F0FF] to-transparent animate-pulse"></div>
-          <div className="flex justify-between items-center text-[10px] text-neutral-500 pb-3 border-b border-white/5">
-            <span>TERMINAL // ROOT_ACCESS</span>
-            <span>SECURE_BOOT</span>
-          </div>
-          <div className="space-y-1.5 text-xs text-neutral-400">
-            {logs.map((log, i) => (
-              <p key={i} className={i === logs.length - 1 ? "text-[#00F0FF]" : "text-neutral-400"}>
-                {log}
-              </p>
-            ))}
-          </div>
-          <div className="pt-4 flex items-center gap-2 text-xs">
-            <span className="w-2.5 h-2.5 bg-[#00F0FF] rounded-full animate-ping"></span>
-            <span className="text-[10px] text-neutral-500">Decrypting system clearance level...</span>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className={`min-h-[75vh] sm:min-h-[85vh] flex items-center justify-center px-6 sm:px-12 md:px-24 py-16 relative z-10 transition-opacity duration-700 ${showMain ? 'opacity-100' : 'opacity-0'}`}>
+    <div className="min-h-[75vh] sm:min-h-[85vh] flex items-center justify-center px-6 sm:px-12 md:px-24 py-16 relative z-10">
       <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         
         {/* Left Column: Bio Details */}
         <div className="lg:col-span-7 space-y-6">
-          {/* Terminal clearance marker */}
-          <div className="inline-flex font-mono text-xs text-[#00F0FF] bg-[#00F0FF]/5 border border-[#00F0FF]/25 px-3.5 py-1.5 rounded-full uppercase tracking-widest select-none">
-            <span className="mr-2 animate-pulse">[ SEC_L3 ]</span> HIGH CLEARANCE ACCESS
+          {/* Active Status Badge */}
+          <div className="inline-flex font-mono text-xs text-[#00F0FF] bg-[#00F0FF]/5 border border-[#00F0FF]/20 px-3.5 py-1.5 rounded-full uppercase tracking-widest select-none">
+            <span className="mr-2 flex h-2 w-2 items-center justify-center relative mt-1">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00F0FF] opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#00F0FF]"></span>
+            </span>
+            SYSTEM STATUS: SECURE
           </div>
 
           {/* Decrypted Headline */}
           <h1 className="text-4xl sm:text-6xl md:text-7xl font-sans font-black tracking-tight text-white leading-none">
             <DecryptText text="Keerthivasan M" speed={30} />
             <span className="block text-xl sm:text-2xl md:text-3xl mt-3 text-neutral-400 font-mono font-medium">
-              <DecryptText text="Securing Perimeters. Hunting Threats." speed={20} delay={600} />
+              <DecryptText text="Securing Perimeters. Hunting Threats." speed={20} delay={400} />
             </span>
           </h1>
 
@@ -88,9 +34,9 @@ export default function HeroConsole() {
           <div className="flex flex-col sm:flex-row gap-4 pt-4">
             <a
               href="#projects"
-              className="px-8 py-4 bg-[#1E40AF]/20 hover:bg-[#00F0FF] text-white hover:text-black font-mono text-xs uppercase font-extrabold tracking-widest border border-[#1E40AF]/50 hover:border-[#00F0FF] rounded-xl transition-all duration-300 shadow-[0_0_20px_rgba(30,64,175,0.15)] hover:shadow-[0_0_25px_rgba(0,240,255,0.4)] text-center cursor-pointer"
+              className="px-8 py-4 bg-[#1E40AF]/25 hover:bg-[#00F0FF] text-white hover:text-black font-mono text-xs uppercase font-extrabold tracking-widest border border-[#1E40AF]/40 hover:border-[#00F0FF] rounded-xl transition-all duration-300 shadow-[0_0_20px_rgba(0,240,255,0.05)] hover:shadow-[0_0_25px_rgba(0,240,255,0.3)] text-center cursor-pointer"
             >
-              [ Initialize Access : View Projects ]
+              [ View Audited Projects ]
             </a>
             <a
               href="#contact"
@@ -101,35 +47,26 @@ export default function HeroConsole() {
           </div>
         </div>
 
-        {/* Right Column: Holographic Scanner Profile Photo */}
+        {/* Right Column: Premium Shaded Profile Photo */}
         <div className="lg:col-span-5 flex justify-center lg:justify-end">
-          <div className="relative glass-panel p-3 rounded-3xl border border-white/10 max-w-[340px] w-full bg-black/40 shadow-[0_0_40px_rgba(30,64,175,0.1)] group overflow-hidden">
+          <div className="relative glass-panel p-4 rounded-3xl border border-white/10 max-w-[420px] w-full bg-black/30 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] hover:border-[#00F0FF]/25 hover:shadow-[0_0_40px_rgba(0,240,255,0.08)] transition-all duration-500 group overflow-hidden">
             
-            {/* Holographic scanner laser line */}
-            <div className="absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#00F0FF] to-transparent pointer-events-none z-20 animate-[sweep_3.5s_infinite_linear]"></div>
+            {/* Shaded mesh corner glow */}
+            <div className="absolute -right-20 -top-20 w-44 h-44 bg-[#00F0FF]/5 group-hover:bg-[#00F0FF]/10 rounded-full blur-3xl transition-all duration-500"></div>
 
-            {/* Matrix dots grid overlay */}
-            <div className="absolute inset-3 bg-[radial-gradient(rgba(0,240,255,0.08)_1px,transparent_1px)] bg-[size:16px_16px] pointer-events-none z-10 rounded-2xl"></div>
-
-            {/* Corner Bracket Reticles */}
-            <div className="absolute top-6 left-6 w-4 h-4 border-t-2 border-l-2 border-[#00F0FF] z-20 pointer-events-none"></div>
-            <div className="absolute top-6 right-6 w-4 h-4 border-t-2 border-r-2 border-[#00F0FF] z-20 pointer-events-none"></div>
-            <div className="absolute bottom-6 left-6 w-4 h-4 border-b-2 border-l-2 border-[#00F0FF] z-20 pointer-events-none"></div>
-            <div className="absolute bottom-6 right-6 w-4 h-4 border-b-2 border-r-2 border-[#00F0FF] z-20 pointer-events-none"></div>
-
-            {/* Profile Image */}
-            <div className="relative rounded-2xl overflow-hidden bg-neutral-900 border border-white/5">
+            {/* Profile Image Wrapper */}
+            <div className="relative rounded-2xl overflow-hidden bg-neutral-950 border border-white/5">
               <img 
                 src="/medp.jpeg" 
                 alt="Keerthivasan M" 
-                className="w-full h-auto object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 select-none scale-[1.02] group-hover:scale-100"
+                className="w-full h-auto object-cover grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000 select-none scale-[1.01] group-hover:scale-100"
               />
             </div>
 
-            {/* HUD Status Readouts */}
-            <div className="mt-4 flex justify-between items-center font-mono text-[9px] text-neutral-500 px-1 border-t border-white/5 pt-3">
-              <span className="text-[#00F0FF] font-bold animate-pulse">[ SCAN_ACTIVE ]</span>
-              <span>ID: KEERTHIVASAN.M</span>
+            {/* Identity HUD Tag */}
+            <div className="mt-4 flex justify-between items-center font-mono text-[10px] text-neutral-500 px-1 border-t border-white/5 pt-3">
+              <span className="text-neutral-400 font-bold">OPERATOR_ID: K-8812</span>
+              <span className="text-[#00F0FF] uppercase tracking-wider">SEC_L3 CLEARANCE</span>
             </div>
           </div>
         </div>

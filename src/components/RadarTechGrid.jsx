@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 // Custom inline SVG icons for security & dev tools
 const ToolLogos = {
   nmap: (
-    <svg className="w-8 h-8 text-[#00F0FF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+    <svg className="w-6 h-6 text-[#00F0FF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
       <circle cx="12" cy="12" r="10" strokeDasharray="3 3" />
       <circle cx="12" cy="12" r="6" />
       <circle cx="12" cy="12" r="2" fill="currentColor" />
@@ -13,14 +13,14 @@ const ToolLogos = {
     </svg>
   ),
   metasploit: (
-    <svg className="w-8 h-8 text-[#00F0FF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+    <svg className="w-6 h-6 text-[#00F0FF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
       <path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z" fill="currentColor" fillOpacity="0.05" />
       <path d="M12 6l-6 3.5V13c0 3.7 2.5 7.2 6 8 3.5-.8 6-4.3 6-8V9.5L12 6z" />
       <path d="M9 10h6M9 13h6M12 10v6" strokeWidth="2" />
     </svg>
   ),
   burpsuite: (
-    <svg className="w-8 h-8 text-[#EF4444]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+    <svg className="w-6 h-6 text-[#EF4444]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
       <circle cx="12" cy="12" r="9" />
       <path d="M12 3v18M3 12h18" strokeDasharray="2 2" />
       <rect x="9" y="9" width="6" height="6" rx="1" fill="currentColor" fillOpacity="0.1" />
@@ -28,7 +28,7 @@ const ToolLogos = {
     </svg>
   ),
   hydra: (
-    <svg className="w-8 h-8 text-[#00F0FF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+    <svg className="w-6 h-6 text-[#00F0FF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
       <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2z" />
       <path d="M8 8l2 2m4 0l2-2m-6 8h4m-5-3h6" strokeWidth="2" />
       <circle cx="9" cy="11" r="1" fill="currentColor" />
@@ -36,21 +36,21 @@ const ToolLogos = {
     </svg>
   ),
   wireshark: (
-    <svg className="w-8 h-8 text-[#00F0FF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+    <svg className="w-6 h-6 text-[#00F0FF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
       <path d="M2 17s3-5 10-5 10 5 10 5" />
       <path d="M12 12V3c1.5 2.5 4.5 4 4.5 4S13.5 8.5 12 12z" fill="currentColor" />
       <path d="M2 20h20" strokeWidth="2" />
     </svg>
   ),
   splunk: (
-    <svg className="w-8 h-8 text-[#EF4444]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+    <svg className="w-6 h-6 text-[#EF4444]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
       <rect x="3" y="3" width="18" height="18" rx="2" strokeDasharray="1 1" />
       <path d="M7 8l4 4-4 4" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
       <line x1="13" y1="16" x2="17" y2="16" strokeWidth="2.5" strokeLinecap="round" />
     </svg>
   ),
   sentinel: (
-    <svg className="w-8 h-8 text-[#1E40AF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+    <svg className="w-6 h-6 text-[#1E40AF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
       <path d="M12 2L2 7l10 5 10-5-10-5z" fill="currentColor" fillOpacity="0.1" />
       <path d="M2 17l10 5 10-5" />
       <path d="M2 12l10 5 10-5" />
@@ -58,7 +58,7 @@ const ToolLogos = {
     </svg>
   ),
   snort: (
-    <svg className="w-8 h-8 text-[#00F0FF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+    <svg className="w-6 h-6 text-[#00F0FF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
       <rect x="4" y="6" width="16" height="12" rx="3" />
       <circle cx="9" cy="11" r="1.5" fill="currentColor" />
       <circle cx="15" cy="11" r="1.5" fill="currentColor" />
@@ -66,13 +66,13 @@ const ToolLogos = {
     </svg>
   ),
   python: (
-    <svg className="w-8 h-8 text-[#1E40AF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+    <svg className="w-6 h-6 text-[#1E40AF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
       <path d="M12 2H9a4 4 0 00-4 4v2a2 2 0 002 2h3V9h4v2a4 4 0 004-4V5a3 3 0 00-3-3h-4z" />
       <path d="M12 22h3a4 4 0 004-4v-2a2 2 0 00-2-2h-3v1h-4v-2a4 4 0 00-4 4v2a3 3 0 003 3h4z" />
     </svg>
   ),
   react: (
-    <svg className="w-8 h-8 text-[#00F0FF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+    <svg className="w-6 h-6 text-[#00F0FF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
       <ellipse rx="10" ry="4.5" cx="12" cy="12" transform="rotate(30 12 12)" />
       <ellipse rx="10" ry="4.5" cx="12" cy="12" transform="rotate(90 12 12)" />
       <ellipse rx="10" ry="4.5" cx="12" cy="12" transform="rotate(150 12 12)" />
@@ -80,14 +80,14 @@ const ToolLogos = {
     </svg>
   ),
   firebase: (
-    <svg className="w-8 h-8 text-[#EF4444]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+    <svg className="w-6 h-6 text-[#EF4444]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
       <path d="M3 17.5L12 2l4 7" />
       <path d="M12 14.5l6.5-6.5L21 17.5c.5.5-.2 1.5-.9 1.1L12 14.5z" fill="currentColor" fillOpacity="0.1" />
       <path d="M3.2 18.2l7.7-14.8c.2-.5 1-.5 1.2 0l2 3.8" />
     </svg>
   ),
   docker: (
-    <svg className="w-8 h-8 text-[#1E40AF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+    <svg className="w-6 h-6 text-[#1E40AF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
       <rect x="5" y="10" width="3" height="3" rx="0.5" fill="currentColor" />
       <rect x="9" y="10" width="3" height="3" rx="0.5" fill="currentColor" />
       <rect x="13" y="10" width="3" height="3" rx="0.5" fill="currentColor" />
@@ -133,39 +133,36 @@ export default function RadarTechGrid() {
               key={skill.id}
               onMouseEnter={() => setHoveredSkill(skill)}
               onMouseLeave={() => setHoveredSkill(null)}
-              className={`relative glass-card p-5 flex flex-col justify-between border rounded-2xl cursor-pointer select-none transition-all duration-500 overflow-hidden h-36 ${
+              className={`relative glass-card p-5 flex flex-col justify-between border cursor-pointer select-none transition-all duration-500 overflow-hidden h-32 ${
                 isCurrent 
-                  ? 'border-[#00F0FF] shadow-[0_0_20px_rgba(0,240,255,0.2)] bg-black/80' 
+                  ? 'border-[#00F0FF]/30 bg-white/[0.03] shadow-[0_15px_30px_-5px_rgba(0,240,255,0.05)] scale-[1.02]' 
                   : isRelated 
-                    ? 'border-[#1E40AF] shadow-[0_0_15px_rgba(30,64,175,0.15)] bg-black/40' 
-                    : 'border-white/5 bg-black/20 opacity-40 scale-[0.98]'
+                    ? 'border-[#1E40AF]/30 bg-white/[0.015] scale-[1.01]' 
+                    : 'border-white/5 bg-black/20 opacity-55 scale-[0.98]'
               }`}
             >
               {/* Radar Ping rings on hover */}
               {isCurrent && (
-                <>
-                  <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
-                    <span className="w-16 h-16 rounded-full border border-[#00F0FF]/35 animate-ping absolute"></span>
-                    <span className="w-24 h-24 rounded-full border border-[#00F0FF]/20 animate-ping absolute [animation-delay:0.3s]"></span>
-                  </div>
-                </>
+                <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
+                  <span className="w-16 h-16 rounded-full border border-[#00F0FF]/15 animate-ping absolute"></span>
+                </div>
               )}
 
               {/* Status Header */}
-              <div className="flex justify-between items-start text-[8px] font-mono tracking-widest text-neutral-500">
-                <span>[ ACTIVE_RADAR ]</span>
+              <div className="flex justify-between items-center text-[8px] font-mono tracking-widest text-neutral-500">
+                <span>RADAR_TAG</span>
                 {ToolLogos[skill.id] || null}
               </div>
 
               {/* Name */}
-              <h3 className="font-mono font-bold text-sm tracking-tight text-white mt-3">
+              <h3 className="font-sans font-bold text-sm tracking-tight text-white mt-3">
                 {skill.name}
               </h3>
 
               {/* Secure Footnotes */}
-              <div className="flex justify-between items-center text-[8px] font-mono text-neutral-600 border-t border-white/5 pt-2 mt-2">
-                <span>AUTH_GRANTED</span>
-                <span className={isRelated ? 'text-[#00F0FF]' : 'text-neutral-600'}>
+              <div className="flex justify-between items-center text-[8px] font-mono text-neutral-500 border-t border-white/5 pt-2 mt-2">
+                <span>OPERATIONAL</span>
+                <span className={isRelated ? 'text-[#00F0FF]' : 'text-neutral-500'}>
                   {skill.category.toUpperCase()}
                 </span>
               </div>
@@ -175,35 +172,31 @@ export default function RadarTechGrid() {
       </div>
 
       {/* Terminal Readout Sidebar */}
-      <div className="lg:col-span-4 glass-card border border-white/10 p-6 rounded-2xl flex flex-col justify-between h-80 bg-[#070A13]/85 relative overflow-hidden">
-        <div className="absolute top-0 right-0 p-3 text-[8px] font-mono text-neutral-600 tracking-wider uppercase select-none">
-          Console V4.9
-        </div>
-
+      <div className="lg:col-span-4 glass-panel p-6 rounded-3xl border border-white/5 flex flex-col justify-between h-72 bg-black/20 relative overflow-hidden">
         <div className="space-y-4">
-          <div className="flex items-center gap-1.5 font-mono text-xs text-neutral-400 border-b border-white/5 pb-2">
-            <span className="w-2 h-2 rounded-full bg-[#00F0FF] animate-pulse"></span>
-            <span>SIEM // TOOL_DETAILS</span>
+          <div className="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-wider text-neutral-400 border-b border-white/5 pb-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#00F0FF]"></span>
+            <span>Capability Analysis</span>
           </div>
 
           {hoveredSkill ? (
-            <div className="space-y-3 font-mono">
+            <div className="space-y-3 font-sans">
               <h4 className="text-sm font-bold text-white uppercase tracking-wider">{hoveredSkill.name}</h4>
-              <p className="text-xs text-neutral-300 leading-relaxed">{hoveredSkill.desc}</p>
-              <div className="text-[10px] text-[#00F0FF] pt-2">
-                <span>&gt; STATUS: OPERATIONAL</span>
+              <p className="text-xs text-neutral-300 leading-relaxed font-medium">{hoveredSkill.desc}</p>
+              <div className="text-[10px] text-[#00F0FF] font-mono">
+                <span>&gt; STATUS: OK</span>
               </div>
             </div>
           ) : (
-            <div className="font-mono text-xs text-neutral-500 space-y-2.5">
-              <p className="animate-pulse">&gt; Awaiting node activation...</p>
-              <p className="text-[10px] text-neutral-600 leading-relaxed">Hover over any capability node on the left radar map to analyze system usage, classifications, and audit logs.</p>
+            <div className="font-sans text-xs text-neutral-400 space-y-2.5 font-medium">
+              <p className="animate-pulse font-mono text-[10px] text-neutral-500">&gt; Query pending...</p>
+              <p className="text-[11px] text-neutral-500 leading-relaxed">Hover over any capability node on the left radar map to analyze system usage, classifications, and audit logs.</p>
             </div>
           )}
         </div>
 
-        <div className="font-mono text-[9px] text-neutral-600 border-t border-white/5 pt-3">
-          <span>PORT_STATUS // CONNECTED</span>
+        <div className="font-mono text-[8px] text-neutral-500 border-t border-white/5 pt-3">
+          <span>PORT: 443 // AUTH_OK</span>
         </div>
       </div>
     </div>

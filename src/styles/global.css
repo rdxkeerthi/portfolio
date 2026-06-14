@@ -7,15 +7,15 @@
   --font-mono: 'JetBrains Mono', 'Courier New', Courier, monospace;
 
   --color-brand-primary: #ffffff;
-  --color-dark-bg: #070A13;
-  --color-dark-surface: #0e1322;
-  --color-dark-card: #141b2d;
+  --color-dark-bg: #050811;
+  --color-dark-surface: #0a0e1c;
+  --color-dark-card: #0f152b;
   
   --color-accent-cobalt: #1E40AF;
   --color-accent-cyan: #00F0FF;
 }
 
-/* Custom smooth scrolling and page defaults */
+/* Page defaults */
 html {
   scroll-behavior: initial;
   background-color: var(--color-dark-bg);
@@ -25,43 +25,29 @@ html {
 
 /* Scrollbar styling */
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0B0F19;
+  background: #050811;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 240, 255, 0.15);
-  border-radius: 2px;
+  background: rgba(30, 64, 175, 0.2);
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 240, 255, 0.4);
-}
-
-/* Subtle CRT Scanline overlay */
-.scanlines {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 9999;
-  background: linear-gradient(
-    rgba(11, 15, 25, 0) 50%, 
-    rgba(0, 0, 0, 0.1) 50%
-  );
-  background-size: 100% 4px;
-  opacity: 0.8;
+  background: rgba(0, 240, 255, 0.3);
 }
 
 /* Cyber grid systems */
 .cyber-grid {
   position: absolute;
   inset: 0;
-  background-size: 26px 26px;
-  background-image: radial-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-image: radial-gradient(rgba(30, 64, 175, 0.04) 1px, transparent 1px);
   pointer-events: none;
   z-index: 1;
 }
@@ -71,37 +57,37 @@ html {
   inset: 0;
   pointer-events: none;
   z-index: 2;
-  background: radial-gradient(circle 320px at var(--mouse-x, -1000px) var(--mouse-y, -1000px), rgba(0, 240, 255, 0.05) 0%, rgba(30, 64, 175, 0.02) 50%, transparent 100%);
+  background: radial-gradient(circle 450px at var(--mouse-x, -1000px) var(--mouse-y, -1000px), rgba(30, 64, 175, 0.04) 0%, rgba(0, 240, 255, 0.01) 50%, transparent 100%);
 }
 
-/* Glassmorphic vaults */
+/* Modern Glass Panels */
 .glass-panel {
-  background: rgba(14, 19, 34, 0.55);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(0, 240, 255, 0.06);
+  background: rgba(10, 14, 28, 0.45);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.03);
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .glass-panel:hover {
-  background: rgba(14, 19, 34, 0.75);
-  border-color: rgba(0, 240, 255, 0.25);
-  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.8), 0 0 30px -5px rgba(0, 240, 255, 0.08);
+  background: rgba(10, 14, 28, 0.6);
+  border-color: rgba(0, 240, 255, 0.15);
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.7), 0 0 40px -10px rgba(0, 240, 255, 0.04);
 }
 
 .glass-card {
   background: rgba(255, 255, 255, 0.01);
-  border: 1px solid rgba(0, 240, 255, 0.05);
-  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  border-radius: 16px;
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .glass-card:hover {
   background: rgba(255, 255, 255, 0.02);
-  border-color: rgba(0, 240, 255, 0.2);
+  border-color: rgba(0, 240, 255, 0.12);
 }
 
-/* Lenis scroll CSS integration */
+/* Lenis integration */
 html.lenis, html.lenis body {
   height: auto;
 }
@@ -110,16 +96,8 @@ html.lenis, html.lenis body {
   scroll-behavior: dev-only;
 }
 
-.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
-}
-
 .lenis-stopped {
   overflow: hidden;
-}
-
-.lenis-scrolling iframe {
-  pointer-events: none;
 }
 
 /* GSAP timeline drawing path styles */
@@ -128,20 +106,7 @@ html.lenis, html.lenis body {
   stroke-dashoffset: 1000;
 }
 
-/* Keyframe for laser scan line */
-@keyframes sweep {
-  0% {
-    top: 0%;
-  }
-  50% {
-    top: 100%;
-  }
-  100% {
-    top: 0%;
-  }
-}
-
-/* Terminal boots and blinking cursors */
+/* Blinking cursors */
 .cursor-blink {
   animation: blink 1s step-end infinite;
 }
@@ -154,7 +119,7 @@ html.lenis, html.lenis body {
 /* Fade slide up reveals */
 .reveal {
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(15px);
   transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
