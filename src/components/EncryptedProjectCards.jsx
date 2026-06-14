@@ -37,6 +37,18 @@ const projects = [
     metric: 'RBAC & MFA Hardened',
     tech: ['React', 'Node.js', 'PostgreSQL', 'JWT Auth'],
     pdfLink: '#'
+  },
+  {
+    id: 4,
+    title: 'Automated Vulnerability Scan & Network Hardening Audit',
+    category: 'VAPT & Audit',
+    shortDesc: 'A scheduled network vulnerability scanner configured with OpenVAS and custom bash scripts to generate threat advisories.',
+    type: 'Security Auditing',
+    objective: 'Mitigate Subnet Risks',
+    scope: '42 CVEs Remediated',
+    metric: '99% Compliance Score',
+    tech: ['OpenVAS', 'Nessus', 'Bash', 'Cron Jobs'],
+    pdfLink: '#'
   }
 ];
 
@@ -109,7 +121,7 @@ function ProjectCard({ project }) {
     <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="glass-panel p-6 sm:p-8 rounded-3xl border border-white/5 hover:border-[#00F0FF]/30 hover:shadow-[0_20px_40px_rgba(0,240,255,0.1)] transition-all duration-500 flex flex-col justify-between relative overflow-hidden group h-[520px] bg-black/30"
+      className="glass-panel p-6 sm:p-8 rounded-3xl border border-white/5 hover:border-[#00F0FF]/30 hover:shadow-[0_20px_40px_rgba(0,240,255,0.1)] transition-all duration-500 flex flex-col justify-between relative overflow-hidden group h-[525px] bg-black/30"
     >
       {/* Access Locked Overlay */}
       <div className={`absolute inset-0 bg-black/85 backdrop-blur-[2px] flex flex-col items-center justify-center border border-white/5 pointer-events-none transition-all duration-500 z-20 ${
@@ -120,9 +132,14 @@ function ProjectCard({ project }) {
             <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
             <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
           </svg>
-          <span className="tracking-widest">ACCESS_LOCKED // DECRYPT_ON_HOVER</span>
+          <span className="tracking-widest text-center px-4">ACCESS_LOCKED // DECRYPT</span>
         </div>
       </div>
+
+      {/* Laser line sweep animation */}
+      <div className={`absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#00F0FF] to-transparent pointer-events-none z-10 transition-all duration-500 ${
+        hovered ? 'animate-[sweep_2.5s_infinite_linear]' : 'opacity-0 top-0'
+      }`}></div>
 
       {/* Matrix digital rain simulation inside card */}
       <MatrixRainCanvas active={hovered} />
@@ -143,7 +160,7 @@ function ProjectCard({ project }) {
           </div>
 
           {/* Title - decrypts on hover */}
-          <h3 className="text-base sm:text-lg font-bold tracking-tight text-white mb-3 leading-snug h-14 overflow-hidden">
+          <h3 className="text-sm sm:text-base font-bold tracking-tight text-white mb-3 leading-snug h-16 overflow-hidden">
             {hovered ? (
               <DecryptText text={project.title} speed={25} className="text-white" />
             ) : (
@@ -152,7 +169,7 @@ function ProjectCard({ project }) {
           </h3>
 
           {/* Description */}
-          <p className="text-neutral-400 text-xs leading-relaxed mb-6 font-sans h-16 overflow-hidden">
+          <p className="text-neutral-400 text-[11px] leading-relaxed mb-6 font-sans h-20 overflow-hidden">
             {project.shortDesc}
           </p>
 
@@ -161,20 +178,20 @@ function ProjectCard({ project }) {
             <table className="w-full text-left font-mono text-[10px] border-collapse">
               <tbody>
                 <tr className="border-b border-white/[0.03]">
-                  <td className="py-2.5 text-neutral-500 font-bold uppercase tracking-wider text-[8px]">Type</td>
-                  <td className="py-2.5 text-right font-sans text-neutral-300">
+                  <td className="py-2 text-neutral-500 font-bold uppercase tracking-wider text-[8px]">Type</td>
+                  <td className="py-2 text-right font-sans text-neutral-300">
                     {hovered ? <DecryptText text={project.type} speed={20} /> : project.type}
                   </td>
                 </tr>
                 <tr className="border-b border-white/[0.03]">
-                  <td className="py-2.5 text-neutral-500 font-bold uppercase tracking-wider text-[8px]">Scope</td>
-                  <td className="py-2.5 text-right font-sans text-neutral-300">
+                  <td className="py-2 text-neutral-500 font-bold uppercase tracking-wider text-[8px]">Scope</td>
+                  <td className="py-2 text-right font-sans text-neutral-300">
                     {hovered ? <DecryptText text={project.scope} speed={20} /> : project.scope}
                   </td>
                 </tr>
                 <tr>
-                  <td className="py-2.5 text-neutral-500 font-bold uppercase tracking-wider text-[8px]">Metric</td>
-                  <td className="py-2.5 text-right font-bold text-[#00F0FF]">
+                  <td className="py-2 text-neutral-500 font-bold uppercase tracking-wider text-[8px]">Metric</td>
+                  <td className="py-2 text-right font-bold text-[#00F0FF]">
                     {hovered ? <DecryptText text={project.metric} speed={20} /> : project.metric}
                   </td>
                 </tr>
@@ -185,7 +202,7 @@ function ProjectCard({ project }) {
 
         <div className="mt-6">
           {/* Tech tags */}
-          <div className="flex flex-wrap gap-1 mb-6">
+          <div className="flex flex-wrap gap-1 mb-6 h-10 overflow-hidden">
             {project.tech.map((t) => (
               <span key={t} className="bg-white/5 border border-white/10 text-neutral-300 font-mono text-[8px] font-bold px-2 py-0.5 rounded-md uppercase">
                 {t}
@@ -217,7 +234,7 @@ function ProjectCard({ project }) {
 
 export default function EncryptedProjectCards() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch w-full">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch w-full">
       {projects.map((project) => (
         <ProjectCard key={project.id} project={project} />
       ))}

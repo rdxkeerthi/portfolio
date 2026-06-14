@@ -3,12 +3,16 @@ import React, { useState } from 'react';
 const skills = [
   { id: 'nmap', name: 'Nmap', category: 'vapt', desc: 'Network mapper for security auditing & vulnerability assessment' },
   { id: 'metasploit', name: 'Metasploit', category: 'vapt', desc: 'Offensive exploitation framework for penetration testing' },
+  { id: 'burpsuite', name: 'Burp Suite', category: 'vapt', desc: 'Web vulnerability scanner and proxy tool for application security audits' },
+  { id: 'hydra', name: 'Hydra', category: 'vapt', desc: 'Parallelized network login cracker for credential strength verification' },
   { id: 'wireshark', name: 'Wireshark', category: 'both', desc: 'Packet analyzer for network threat analysis & log audits' },
   { id: 'splunk', name: 'Splunk SIEM', category: 'soc', desc: 'Log aggregation & brute-force correlation playbook design' },
   { id: 'sentinel', name: 'Azure Sentinel', category: 'soc', desc: 'Cloud-native SIEM for enterprise anomaly threat detection' },
+  { id: 'snort', name: 'Snort IDS', category: 'soc', desc: 'Open-source intrusion detection system for real-time traffic analysis' },
   { id: 'python', name: 'Python', category: 'dev', desc: 'Security automation scripting & physiological ML model code' },
   { id: 'react', name: 'React', category: 'dev', desc: 'Secure front-end design, JWT integration, and role-based views' },
-  { id: 'firebase', name: 'Firebase', category: 'dev', desc: 'Cloud database, strict security rules, and user MFA auth' }
+  { id: 'firebase', name: 'Firebase', category: 'dev', desc: 'Cloud database, strict security rules, and user MFA auth' },
+  { id: 'docker', name: 'Docker', category: 'dev', desc: 'Containerization platform used for sandbox environments and secure service isolation' }
 ];
 
 export default function RadarTechGrid() {
@@ -17,7 +21,7 @@ export default function RadarTechGrid() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start w-full">
       {/* Node Grid Map */}
-      <div className="lg:col-span-8 grid grid-cols-2 sm:grid-cols-3 gap-4 relative">
+      <div className="lg:col-span-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 relative">
         {skills.map((skill) => {
           const isCurrent = hoveredSkill?.id === skill.id;
           const isRelated = hoveredSkill && (
@@ -32,7 +36,7 @@ export default function RadarTechGrid() {
               key={skill.id}
               onMouseEnter={() => setHoveredSkill(skill)}
               onMouseLeave={() => setHoveredSkill(null)}
-              className={`relative glass-card p-6 border rounded-2xl cursor-pointer select-none transition-all duration-500 overflow-hidden flex flex-col justify-between h-32 ${
+              className={`relative glass-card p-4 flex flex-col justify-between border rounded-2xl cursor-pointer select-none transition-all duration-500 overflow-hidden h-32 ${
                 isCurrent 
                   ? 'border-[#00F0FF] shadow-[0_0_20px_rgba(0,240,255,0.2)] bg-black/80' 
                   : isRelated 
@@ -51,7 +55,7 @@ export default function RadarTechGrid() {
               )}
 
               {/* Status Header */}
-              <div className="flex justify-between items-center text-[9px] font-mono tracking-widest text-neutral-500">
+              <div className="flex justify-between items-center text-[8px] font-mono tracking-widest text-neutral-500">
                 <span>[ ACTIVE_RADAR ]</span>
                 <span className={isRelated ? 'text-[#00F0FF]' : 'text-neutral-600'}>
                   {skill.category.toUpperCase()}
@@ -59,7 +63,7 @@ export default function RadarTechGrid() {
               </div>
 
               {/* Name */}
-              <h3 className="font-mono font-bold text-base tracking-tight text-white mt-2">
+              <h3 className="font-mono font-bold text-sm tracking-tight text-white mt-2">
                 {skill.name}
               </h3>
 
@@ -74,7 +78,7 @@ export default function RadarTechGrid() {
       </div>
 
       {/* Terminal Readout Sidebar */}
-      <div className="lg:col-span-4 glass-card border border-white/10 p-6 rounded-2xl flex flex-col justify-between h-72 bg-[#0B0F19]/80 relative overflow-hidden">
+      <div className="lg:col-span-4 glass-card border border-white/10 p-6 rounded-2xl flex flex-col justify-between h-72 bg-[#0B0F19]/85 relative overflow-hidden">
         <div className="absolute top-0 right-0 p-3 text-[8px] font-mono text-neutral-600 tracking-wider uppercase select-none">
           Console V4.9
         </div>

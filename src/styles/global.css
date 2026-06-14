@@ -17,7 +17,7 @@
 
 /* Custom smooth scrolling and page defaults */
 html {
-  scroll-behavior: initial; /* Lenis handles smooth scroll */
+  scroll-behavior: initial;
   background-color: var(--color-dark-bg);
   color: #f4f4f5;
   overflow-x: hidden;
@@ -40,6 +40,20 @@ html {
 
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(0, 240, 255, 0.4);
+}
+
+/* Subtle CRT Scanline overlay */
+.scanlines {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  background: linear-gradient(
+    rgba(11, 15, 25, 0) 50%, 
+    rgba(0, 0, 0, 0.1) 50%
+  );
+  background-size: 100% 4px;
+  opacity: 0.8;
 }
 
 /* Cyber grid systems */
@@ -112,6 +126,19 @@ html.lenis, html.lenis body {
 .traceroute-path {
   stroke-dasharray: 1000;
   stroke-dashoffset: 1000;
+}
+
+/* Keyframe for laser scan line */
+@keyframes sweep {
+  0% {
+    top: 0%;
+  }
+  50% {
+    top: 100%;
+  }
+  100% {
+    top: 0%;
+  }
 }
 
 /* Terminal boots and blinking cursors */
