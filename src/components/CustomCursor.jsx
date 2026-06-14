@@ -97,7 +97,7 @@ export default function CustomCursor() {
 
       // Reposition cat container
       if (catRef.current) {
-        catRef.current.style.transform = `translate3d(${catPos.current.x - 16}px, ${catPos.current.y - 12}px, 0)`;
+        catRef.current.style.transform = `translate3d(${catPos.current.x - 18}px, ${catPos.current.y - 18}px, 0)`;
       }
 
       animationFrameId.current = requestAnimationFrame(updateLoop);
@@ -119,7 +119,7 @@ export default function CustomCursor() {
 
   return (
     <>
-      {/* 1. Hacker Crosshair Cursor */}
+      {/* 1. Hacker Target Crosshair Cursor */}
       <div
         ref={cursorRef}
         className="fixed top-0 left-0 w-6 h-6 pointer-events-none z-[9999] transition-transform duration-[0.01s] ease-out flex items-center justify-center text-[#00F0FF]"
@@ -142,100 +142,98 @@ export default function CustomCursor() {
         </svg>
       </div>
 
-      {/* 2. Oneko Chasing Cat */}
+      {/* 2. Cyber Chasing Cat */}
       <div
         ref={catRef}
-        className="fixed top-0 left-0 w-8 h-8 pointer-events-none z-[9998] transition-transform duration-[0.03s] ease-out select-none"
+        className="fixed top-0 left-0 w-9 h-9 pointer-events-none z-[9998] transition-transform duration-[0.03s] ease-out select-none"
       >
         <div 
           className="relative flex items-center justify-center w-full h-full"
           style={{ transform: `scaleX(${catDirection === 'left' ? -1 : 1})` }}
         >
-          {/* Exclamation point on Hover state */}
+          {/* Cyan tech alert on Hover state */}
           {isHovered && catState !== 'sleeping' && (
-            <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#00F0FF]/10 border border-[#00F0FF]/30 text-[#00F0FF] font-mono text-[9px] font-black px-1 py-0.5 rounded leading-none animate-bounce">
-              !
+            <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#00F0FF]/15 border border-[#00F0FF]/40 text-[#00F0FF] font-mono text-[8px] font-black px-1.5 py-0.5 rounded leading-none animate-bounce shadow-[0_0_8px_rgba(0,240,255,0.4)]">
+              ALERT
             </div>
           )}
 
-          {/* Zzz particle sleep clouds */}
+          {/* Sleep telemetry metric bubbles */}
           {catState === 'sleeping' && (
-            <div className="absolute -top-3 -right-2 font-mono text-[8px] text-[#00F0FF]/60 animate-pulse font-bold tracking-widest">
-              Zzz
+            <div className="absolute -top-3.5 -right-2 font-mono text-[7px] text-[#00F0FF]/50 animate-pulse font-bold tracking-widest">
+              SLP_0x0f
             </div>
           )}
 
-          {/* Cat State Rendering */}
+          {/* Cyber Cat State Vector Frames */}
           {catState === 'idle' && (
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" className="text-white filter drop-shadow-[0_0_4px_rgba(255,255,255,0.1)]">
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none" className="filter drop-shadow-[0_0_8px_rgba(0,240,255,0.3)]">
               {/* Ears */}
-              <path d="M8 12 L5 5 L12 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="M24 12 L27 5 L20 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M9 13L4 4L13 9" stroke="#00F0FF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M27 13L32 4L23 9" stroke="#00F0FF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               {/* Head */}
-              <path d="M8 12 C6 14 6 18 10 19 C14 20 18 20 22 19 C26 18 26 14 24 12 Z" stroke="currentColor" strokeWidth="2" fill="#050811" />
-              <ellipse cx="12" cy="15" rx="1" ry="1.5" fill="#00F0FF" />
-              <ellipse cx="20" cy="15" rx="1" ry="1.5" fill="#00F0FF" />
-              {/* Nose */}
-              <path d="M16 16.5 L15.5 17.5 L16.5 17.5 Z" fill="#EF4444" />
+              <path d="M9 13C6 15.5 6 20.5 10 21.5C14 22.5 22 22.5 26 21.5C30 20.5 30 15.5 27 13Z" fill="#0A0E1C" stroke="#00F0FF" strokeWidth="1.5" />
+              {/* Cyber Visor Eye */}
+              <rect x="11" y="14" width="14" height="2.5" rx="1.25" fill="#EF4444" className="animate-pulse" />
+              {/* Neck collar segment */}
+              <path d="M12 21.5L18 23.5L24 21.5" stroke="#1E40AF" strokeWidth="1.5" />
               {/* Body */}
-              <path d="M10 19 C8 24 9 29 12 30 C13 30 19 30 20 30 C23 29 24 24 22 19 Z" stroke="currentColor" strokeWidth="2" fill="#050811" />
-              {/* Tail wiggles slightly */}
-              <path d="M21 28 C23 29 25 28 27 25" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+              <path d="M11 21.5C8.5 26.5 9.5 32 13 33C14 33 22 33 23 33C26.5 32 27.5 26.5 25 21.5Z" fill="#0A0E1C" stroke="#00F0FF" strokeWidth="1.5" />
+              {/* Segmented Cyber Tail */}
+              <path d="M23 30C26 30 28.5 28 29.5 24" stroke="#00F0FF" strokeWidth="2" strokeLinecap="round" />
+              <circle cx="29.5" cy="24" r="1.5" fill="#EF4444" />
             </svg>
           )}
 
           {catState === 'running' && (
             runFrame === 0 ? (
-              <svg width="36" height="32" viewBox="0 0 36 32" fill="none" className="text-white filter drop-shadow-[0_0_4px_rgba(0,240,255,0.15)]">
+              <svg width="36" height="36" viewBox="0 0 36 36" fill="none" className="filter drop-shadow-[0_0_8px_rgba(0,240,255,0.45)]">
                 {/* Ears */}
-                <path d="M12 10 L10 4 L16 8" stroke="currentColor" strokeWidth="2" />
-                <path d="M24 10 L26 4 L20 8" stroke="currentColor" strokeWidth="2" />
-                {/* Head facing forward */}
-                <path d="M12 10 C10 12 10 16 14 17 C18 18 22 18 26 17 C30 16 30 12 28 10 Z" stroke="currentColor" strokeWidth="2" fill="#050811" />
-                <circle cx="17" cy="13" r="1" fill="#00F0FF" />
-                <circle cx="23" cy="13" r="1" fill="#00F0FF" />
-                {/* Body running stretched */}
-                <path d="M14 15 C8 15 4 19 4 23 C4 26 10 26 14 23" stroke="currentColor" strokeWidth="2" fill="#050811" />
-                {/* Legs extended forward/backward */}
-                <line x1="6" y1="23" x2="2" y2="28" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                <line x1="12" y1="23" x2="9" y2="29" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                <line x1="14" y1="20" x2="18" y2="26" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                {/* Tail straight up */}
-                <path d="M4 16 C2 12 1 12 1 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                <path d="M11 12L7 4L15 8" stroke="#00F0FF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M25 12L29 4L21 8" stroke="#00F0FF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                {/* Head */}
+                <path d="M11 12C8 14.5 8 19.5 12 20.5C16 21.5 20 21.5 24 20.5C28 19.5 28 14.5 25 12Z" fill="#0A0E1C" stroke="#00F0FF" strokeWidth="1.5" />
+                <rect x="13" y="14.5" width="10" height="2.5" rx="1.25" fill="#EF4444" />
+                {/* Body stretched */}
+                <path d="M13 18.5C7.5 18.5 3 22.5 3 26.5C3 29.5 9 29.5 13 26.5" stroke="#00F0FF" strokeWidth="1.5" fill="#0A0E1C" />
+                {/* Stretched legs */}
+                <line x1="5.5" y1="27" x2="1" y2="33" stroke="#00F0FF" strokeWidth="2.2" strokeLinecap="round" />
+                <line x1="11.5" y1="27" x2="8" y2="34" stroke="#00F0FF" strokeWidth="2.2" strokeLinecap="round" />
+                <line x1="13" y1="24" x2="17" y2="31" stroke="#1E40AF" strokeWidth="2.2" strokeLinecap="round" />
+                {/* Tail trail */}
+                <path d="M3 18C1.5 14.5 1 14.5 1 14.5" stroke="#00F0FF" strokeWidth="2" strokeLinecap="round" />
               </svg>
             ) : (
-              <svg width="36" height="32" viewBox="0 0 36 32" fill="none" className="text-white filter drop-shadow-[0_0_4px_rgba(0,240,255,0.15)]">
+              <svg width="36" height="36" viewBox="0 0 36 36" fill="none" className="filter drop-shadow-[0_0_8px_rgba(0,240,255,0.45)]">
                 {/* Ears */}
-                <path d="M12 10 L10 4 L16 8" stroke="currentColor" strokeWidth="2" />
-                <path d="M24 10 L26 4 L20 8" stroke="currentColor" strokeWidth="2" />
+                <path d="M11 12L7 4L15 8" stroke="#00F0FF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M25 12L29 4L21 8" stroke="#00F0FF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 {/* Head */}
-                <path d="M12 10 C10 12 10 16 14 17 C18 18 22 18 26 17 C30 16 30 12 28 10 Z" stroke="currentColor" strokeWidth="2" fill="#050811" />
-                <circle cx="17" cy="13" r="1" fill="#00F0FF" />
-                <circle cx="23" cy="13" r="1" fill="#00F0FF" />
-                {/* Body running compact */}
-                <path d="M14 15 C8 15 4 19 4 23 C4 26 10 26 14 23" stroke="currentColor" strokeWidth="2" fill="#050811" />
+                <path d="M11 12C8 14.5 8 19.5 12 20.5C16 21.5 20 21.5 24 20.5C28 19.5 28 14.5 25 12Z" fill="#0A0E1C" stroke="#00F0FF" strokeWidth="1.5" />
+                <rect x="13" y="14.5" width="10" height="2.5" rx="1.25" fill="#EF4444" />
+                {/* Body compact */}
+                <path d="M13 18.5C7.5 18.5 3 22.5 3 26.5C3 29.5 9 29.5 13 26.5" stroke="#00F0FF" strokeWidth="1.5" fill="#0A0E1C" />
                 {/* Legs tucked */}
-                <line x1="6" y1="23" x2="8" y2="28" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                <line x1="12" y1="23" x2="14" y2="29" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                <line x1="14" y1="20" x2="16" y2="25" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                <line x1="5.5" y1="27" x2="7" y2="33" stroke="#00F0FF" strokeWidth="2.2" strokeLinecap="round" />
+                <line x1="11.5" y1="27" x2="13" y2="34" stroke="#00F0FF" strokeWidth="2.2" strokeLinecap="round" />
+                <line x1="13" y1="24" x2="15" y2="30" stroke="#1E40AF" strokeWidth="2.2" strokeLinecap="round" />
                 {/* Tail curved */}
-                <path d="M4 16 C3 14 3 10 4 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                <path d="M3 18C2.5 16.5 2.5 12.5 3.5 10.5" stroke="#00F0FF" strokeWidth="2" strokeLinecap="round" />
               </svg>
             )
           )}
 
           {catState === 'sleeping' && (
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" className="text-neutral-500 filter drop-shadow-[0_0_2px_rgba(0,0,0,0.5)]">
-              {/* Sleeping curled body */}
-              <circle cx="16" cy="18" r="9" stroke="currentColor" strokeWidth="2" fill="#050811" />
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none" className="filter drop-shadow-[0_0_4px_rgba(0,0,0,0.6)]">
+              {/* Curled sleeping shell */}
+              <circle cx="18" cy="20" r="10" stroke="#4B5563" strokeWidth="1.5" fill="#0A0E1C" />
+              <circle cx="18" cy="20" r="4.5" stroke="#1E40AF" strokeWidth="1.2" className="animate-pulse" />
               {/* Ears flattened */}
-              <path d="M10 13 L12 9 L15 12" stroke="currentColor" strokeWidth="2" />
-              <path d="M22 13 L20 9 L17 12" stroke="currentColor" strokeWidth="2" />
-              {/* Closed eye curves */}
-              <path d="M11 17 C12 18 13 18 14 17" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-              <path d="M18 17 C19 18 20 18 21 17" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-              {/* Curled tail */}
-              <path d="M25 18 C25 22 21 26 16 26" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+              <path d="M12 15L14 11L17 14" stroke="#4B5563" strokeWidth="1.5" />
+              <path d="M24 15L22 11L19 14" stroke="#4B5563" strokeWidth="1.5" />
+              {/* Offline visor indicator */}
+              <rect x="13" y="18" width="10" height="1" fill="#4B5563" />
+              <path d="M27 20C27 24 23 28 18 28" stroke="#4B5563" strokeWidth="1.5" strokeLinecap="round" />
             </svg>
           )}
         </div>
