@@ -61,41 +61,79 @@ export default function HeroConsole() {
   }
 
   return (
-    <div className={`min-h-[75vh] sm:min-h-[85vh] flex flex-col justify-center px-6 sm:px-12 md:px-24 py-16 relative z-10 transition-opacity duration-700 ${showMain ? 'opacity-100' : 'opacity-0'}`}>
-      <div className="max-w-4xl">
-        {/* Terminal clearance marker */}
-        <div className="inline-flex mb-6 font-mono text-xs text-[#00F0FF] bg-[#00F0FF]/5 border border-[#00F0FF]/25 px-3.5 py-1.5 rounded-full uppercase tracking-widest select-none">
-          <span className="mr-2 animate-pulse">[ SEC_L3 ]</span> HIGH CLEARANCE ACCESS
+    <div className={`min-h-[75vh] sm:min-h-[85vh] flex items-center justify-center px-6 sm:px-12 md:px-24 py-16 relative z-10 transition-opacity duration-700 ${showMain ? 'opacity-100' : 'opacity-0'}`}>
+      <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        {/* Left Column: Bio Details */}
+        <div className="lg:col-span-7 space-y-6">
+          {/* Terminal clearance marker */}
+          <div className="inline-flex font-mono text-xs text-[#00F0FF] bg-[#00F0FF]/5 border border-[#00F0FF]/25 px-3.5 py-1.5 rounded-full uppercase tracking-widest select-none">
+            <span className="mr-2 animate-pulse">[ SEC_L3 ]</span> HIGH CLEARANCE ACCESS
+          </div>
+
+          {/* Decrypted Headline */}
+          <h1 className="text-4xl sm:text-6xl md:text-7xl font-sans font-black tracking-tight text-white leading-none">
+            <DecryptText text="Keerthivasan M" speed={30} />
+            <span className="block text-xl sm:text-2xl md:text-3xl mt-3 text-neutral-400 font-mono font-medium">
+              <DecryptText text="Securing Perimeters. Hunting Threats." speed={20} delay={600} />
+            </span>
+          </h1>
+
+          {/* Subhead */}
+          <p className="text-xs sm:text-sm md:text-base text-neutral-400 font-mono tracking-wide max-w-2xl border-l-2 border-[#00F0FF] pl-4 py-1.5">
+            Vulnerability Assessment | Penetration Testing | SOC Investigation
+          </p>
+
+          {/* CTA */}
+          <div className="flex flex-col sm:flex-row gap-4 pt-4">
+            <a
+              href="#projects"
+              className="px-8 py-4 bg-[#1E40AF]/20 hover:bg-[#00F0FF] text-white hover:text-black font-mono text-xs uppercase font-extrabold tracking-widest border border-[#1E40AF]/50 hover:border-[#00F0FF] rounded-xl transition-all duration-300 shadow-[0_0_20px_rgba(30,64,175,0.15)] hover:shadow-[0_0_25px_rgba(0,240,255,0.4)] text-center cursor-pointer"
+            >
+              [ Initialize Access : View Projects ]
+            </a>
+            <a
+              href="#contact"
+              className="px-8 py-4 bg-transparent hover:bg-white/5 text-neutral-300 hover:text-white font-mono text-xs uppercase font-extrabold tracking-widest border border-white/10 hover:border-white/20 rounded-xl transition-all duration-300 text-center cursor-pointer"
+            >
+              // Contact Operator
+            </a>
+          </div>
         </div>
 
-        {/* Decrypted Headline */}
-        <h1 className="text-4xl sm:text-6xl md:text-7xl font-sans font-black tracking-tight text-white mb-6 leading-none">
-          <DecryptText text="Keerthivasan M" speed={30} />
-          <span className="block text-xl sm:text-2xl md:text-4xl mt-3 text-neutral-400 font-mono font-medium">
-            <DecryptText text="Securing Perimeters. Hunting Threats." speed={20} delay={600} />
-          </span>
-        </h1>
+        {/* Right Column: Holographic Scanner Profile Photo */}
+        <div className="lg:col-span-5 flex justify-center lg:justify-end">
+          <div className="relative glass-panel p-3 rounded-3xl border border-white/10 max-w-[340px] w-full bg-black/40 shadow-[0_0_40px_rgba(30,64,175,0.1)] group overflow-hidden">
+            
+            {/* Holographic scanner laser line */}
+            <div className="absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#00F0FF] to-transparent pointer-events-none z-20 animate-[sweep_3.5s_infinite_linear]"></div>
 
-        {/* Subhead */}
-        <p className="text-xs sm:text-sm md:text-base text-neutral-400 font-mono tracking-wide mb-10 max-w-2xl border-l-2 border-[#00F0FF] pl-4 py-1.5">
-          Vulnerability Assessment | Penetration Testing | SOC Investigation
-        </p>
+            {/* Matrix dots grid overlay */}
+            <div className="absolute inset-3 bg-[radial-gradient(rgba(0,240,255,0.08)_1px,transparent_1px)] bg-[size:16px_16px] pointer-events-none z-10 rounded-2xl"></div>
 
-        {/* CTA */}
-        <div className="flex flex-col sm:flex-row gap-4">
-          <a
-            href="#projects"
-            className="px-8 py-4 bg-[#1E40AF]/20 hover:bg-[#00F0FF] text-white hover:text-black font-mono text-xs uppercase font-extrabold tracking-widest border border-[#1E40AF]/50 hover:border-[#00F0FF] rounded-xl transition-all duration-300 shadow-[0_0_20px_rgba(30,64,175,0.15)] hover:shadow-[0_0_25px_rgba(0,240,255,0.4)] text-center cursor-pointer"
-          >
-            [ Initialize Access : View Projects ]
-          </a>
-          <a
-            href="#contact"
-            className="px-8 py-4 bg-transparent hover:bg-white/5 text-neutral-300 hover:text-white font-mono text-xs uppercase font-extrabold tracking-widest border border-white/10 hover:border-white/20 rounded-xl transition-all duration-300 text-center cursor-pointer"
-          >
-            // Contact Operator
-          </a>
+            {/* Corner Bracket Reticles */}
+            <div className="absolute top-6 left-6 w-4 h-4 border-t-2 border-l-2 border-[#00F0FF] z-20 pointer-events-none"></div>
+            <div className="absolute top-6 right-6 w-4 h-4 border-t-2 border-r-2 border-[#00F0FF] z-20 pointer-events-none"></div>
+            <div className="absolute bottom-6 left-6 w-4 h-4 border-b-2 border-l-2 border-[#00F0FF] z-20 pointer-events-none"></div>
+            <div className="absolute bottom-6 right-6 w-4 h-4 border-b-2 border-r-2 border-[#00F0FF] z-20 pointer-events-none"></div>
+
+            {/* Profile Image */}
+            <div className="relative rounded-2xl overflow-hidden bg-neutral-900 border border-white/5">
+              <img 
+                src="/medp.jpeg" 
+                alt="Keerthivasan M" 
+                className="w-full h-auto object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 select-none scale-[1.02] group-hover:scale-100"
+              />
+            </div>
+
+            {/* HUD Status Readouts */}
+            <div className="mt-4 flex justify-between items-center font-mono text-[9px] text-neutral-500 px-1 border-t border-white/5 pt-3">
+              <span className="text-[#00F0FF] font-bold animate-pulse">[ SCAN_ACTIVE ]</span>
+              <span>ID: KEERTHIVASAN.M</span>
+            </div>
+          </div>
         </div>
+
       </div>
     </div>
   );

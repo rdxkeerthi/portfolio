@@ -1,5 +1,102 @@
 import React, { useState } from 'react';
 
+// Custom inline SVG icons for security & dev tools
+const ToolLogos = {
+  nmap: (
+    <svg className="w-8 h-8 text-[#00F0FF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <circle cx="12" cy="12" r="10" strokeDasharray="3 3" />
+      <circle cx="12" cy="12" r="6" />
+      <circle cx="12" cy="12" r="2" fill="currentColor" />
+      <line x1="12" y1="2" x2="12" y2="22" />
+      <line x1="2" y1="12" x2="22" y2="12" />
+      <path d="M12 12 L19 5" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  ),
+  metasploit: (
+    <svg className="w-8 h-8 text-[#00F0FF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z" fill="currentColor" fillOpacity="0.05" />
+      <path d="M12 6l-6 3.5V13c0 3.7 2.5 7.2 6 8 3.5-.8 6-4.3 6-8V9.5L12 6z" />
+      <path d="M9 10h6M9 13h6M12 10v6" strokeWidth="2" />
+    </svg>
+  ),
+  burpsuite: (
+    <svg className="w-8 h-8 text-[#EF4444]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 3v18M3 12h18" strokeDasharray="2 2" />
+      <rect x="9" y="9" width="6" height="6" rx="1" fill="currentColor" fillOpacity="0.1" />
+      <circle cx="12" cy="12" r="3" strokeWidth="2" />
+    </svg>
+  ),
+  hydra: (
+    <svg className="w-8 h-8 text-[#00F0FF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2z" />
+      <path d="M8 8l2 2m4 0l2-2m-6 8h4m-5-3h6" strokeWidth="2" />
+      <circle cx="9" cy="11" r="1" fill="currentColor" />
+      <circle cx="15" cy="11" r="1" fill="currentColor" />
+    </svg>
+  ),
+  wireshark: (
+    <svg className="w-8 h-8 text-[#00F0FF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <path d="M2 17s3-5 10-5 10 5 10 5" />
+      <path d="M12 12V3c1.5 2.5 4.5 4 4.5 4S13.5 8.5 12 12z" fill="currentColor" />
+      <path d="M2 20h20" strokeWidth="2" />
+    </svg>
+  ),
+  splunk: (
+    <svg className="w-8 h-8 text-[#EF4444]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <rect x="3" y="3" width="18" height="18" rx="2" strokeDasharray="1 1" />
+      <path d="M7 8l4 4-4 4" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+      <line x1="13" y1="16" x2="17" y2="16" strokeWidth="2.5" strokeLinecap="round" />
+    </svg>
+  ),
+  sentinel: (
+    <svg className="w-8 h-8 text-[#1E40AF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <path d="M12 2L2 7l10 5 10-5-10-5z" fill="currentColor" fillOpacity="0.1" />
+      <path d="M2 17l10 5 10-5" />
+      <path d="M2 12l10 5 10-5" />
+      <circle cx="12" cy="12" r="2" fill="currentColor" />
+    </svg>
+  ),
+  snort: (
+    <svg className="w-8 h-8 text-[#00F0FF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <rect x="4" y="6" width="16" height="12" rx="3" />
+      <circle cx="9" cy="11" r="1.5" fill="currentColor" />
+      <circle cx="15" cy="11" r="1.5" fill="currentColor" />
+      <path d="M10 14h4" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  ),
+  python: (
+    <svg className="w-8 h-8 text-[#1E40AF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <path d="M12 2H9a4 4 0 00-4 4v2a2 2 0 002 2h3V9h4v2a4 4 0 004-4V5a3 3 0 00-3-3h-4z" />
+      <path d="M12 22h3a4 4 0 004-4v-2a2 2 0 00-2-2h-3v1h-4v-2a4 4 0 00-4 4v2a3 3 0 003 3h4z" />
+    </svg>
+  ),
+  react: (
+    <svg className="w-8 h-8 text-[#00F0FF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <ellipse rx="10" ry="4.5" cx="12" cy="12" transform="rotate(30 12 12)" />
+      <ellipse rx="10" ry="4.5" cx="12" cy="12" transform="rotate(90 12 12)" />
+      <ellipse rx="10" ry="4.5" cx="12" cy="12" transform="rotate(150 12 12)" />
+      <circle cx="12" cy="12" r="1.5" fill="currentColor" />
+    </svg>
+  ),
+  firebase: (
+    <svg className="w-8 h-8 text-[#EF4444]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <path d="M3 17.5L12 2l4 7" />
+      <path d="M12 14.5l6.5-6.5L21 17.5c.5.5-.2 1.5-.9 1.1L12 14.5z" fill="currentColor" fillOpacity="0.1" />
+      <path d="M3.2 18.2l7.7-14.8c.2-.5 1-.5 1.2 0l2 3.8" />
+    </svg>
+  ),
+  docker: (
+    <svg className="w-8 h-8 text-[#1E40AF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <rect x="5" y="10" width="3" height="3" rx="0.5" fill="currentColor" />
+      <rect x="9" y="10" width="3" height="3" rx="0.5" fill="currentColor" />
+      <rect x="13" y="10" width="3" height="3" rx="0.5" fill="currentColor" />
+      <rect x="9" y="6" width="3" height="3" rx="0.5" fill="currentColor" />
+      <path d="M2 14c4 0 4 3 10 3s6-3 10-3v2c-4 0-4 2-10 2s-6-2-10-2v-2z" />
+    </svg>
+  )
+};
+
 const skills = [
   { id: 'nmap', name: 'Nmap', category: 'vapt', desc: 'Network mapper for security auditing & vulnerability assessment' },
   { id: 'metasploit', name: 'Metasploit', category: 'vapt', desc: 'Offensive exploitation framework for penetration testing' },
@@ -36,7 +133,7 @@ export default function RadarTechGrid() {
               key={skill.id}
               onMouseEnter={() => setHoveredSkill(skill)}
               onMouseLeave={() => setHoveredSkill(null)}
-              className={`relative glass-card p-4 flex flex-col justify-between border rounded-2xl cursor-pointer select-none transition-all duration-500 overflow-hidden h-32 ${
+              className={`relative glass-card p-5 flex flex-col justify-between border rounded-2xl cursor-pointer select-none transition-all duration-500 overflow-hidden h-36 ${
                 isCurrent 
                   ? 'border-[#00F0FF] shadow-[0_0_20px_rgba(0,240,255,0.2)] bg-black/80' 
                   : isRelated 
@@ -55,22 +152,22 @@ export default function RadarTechGrid() {
               )}
 
               {/* Status Header */}
-              <div className="flex justify-between items-center text-[8px] font-mono tracking-widest text-neutral-500">
+              <div className="flex justify-between items-start text-[8px] font-mono tracking-widest text-neutral-500">
                 <span>[ ACTIVE_RADAR ]</span>
-                <span className={isRelated ? 'text-[#00F0FF]' : 'text-neutral-600'}>
-                  {skill.category.toUpperCase()}
-                </span>
+                {ToolLogos[skill.id] || null}
               </div>
 
               {/* Name */}
-              <h3 className="font-mono font-bold text-sm tracking-tight text-white mt-2">
+              <h3 className="font-mono font-bold text-sm tracking-tight text-white mt-3">
                 {skill.name}
               </h3>
 
               {/* Secure Footnotes */}
               <div className="flex justify-between items-center text-[8px] font-mono text-neutral-600 border-t border-white/5 pt-2 mt-2">
                 <span>AUTH_GRANTED</span>
-                <span>SEC_L2</span>
+                <span className={isRelated ? 'text-[#00F0FF]' : 'text-neutral-600'}>
+                  {skill.category.toUpperCase()}
+                </span>
               </div>
             </div>
           );
@@ -78,7 +175,7 @@ export default function RadarTechGrid() {
       </div>
 
       {/* Terminal Readout Sidebar */}
-      <div className="lg:col-span-4 glass-card border border-white/10 p-6 rounded-2xl flex flex-col justify-between h-72 bg-[#0B0F19]/85 relative overflow-hidden">
+      <div className="lg:col-span-4 glass-card border border-white/10 p-6 rounded-2xl flex flex-col justify-between h-80 bg-[#070A13]/85 relative overflow-hidden">
         <div className="absolute top-0 right-0 p-3 text-[8px] font-mono text-neutral-600 tracking-wider uppercase select-none">
           Console V4.9
         </div>

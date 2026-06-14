@@ -6,10 +6,10 @@ const projects = [
     id: 1,
     title: 'Detection of Stress in IT Employees using Machine Learning Technique',
     category: 'Research & ML-Ops',
-    shortDesc: 'A predictive machine learning classifier evaluating user behavioral indicators, keystroke dynamics, and network telemetry.',
-    type: 'ML-Ops / Compliance',
-    objective: 'Insider Threat Detection',
-    scope: 'Physiological telemetry',
+    shortDesc: 'A predictive machine learning classifier evaluating user behavioral indicators, keystroke dynamics, and network telemetry to preempt insider threat vulnerabilities.',
+    type: 'Behavioral Threat Analytics',
+    scope: 'Physiological Telemetry',
+    mitre: 'T1185 (Man-in-the-Browser)',
     metric: '92% Detection Accuracy',
     tech: ['Python', 'Scikit-Learn', 'Pandas', 'JSON logs'],
     pdfLink: '#'
@@ -17,11 +17,11 @@ const projects = [
   {
     id: 2,
     title: 'Enterprise SOC Investigation & SSH Brute-Force Detection',
-    category: 'Threat Hunting & Response',
-    shortDesc: 'Log aggression and automated incident response playbooks configured in Splunk to flag and throttle SSH login brute-forces.',
-    type: 'Threat Hunting / IR',
-    objective: 'Brute-Force Mitigation',
-    scope: 'Enterprise local subnets',
+    category: 'Threat Hunting & IR',
+    shortDesc: 'Custom log aggregation playbooks configured in Splunk SIEM correlating syslogs, firewalls, and active directory telemetry to isolate brute-force access vectors.',
+    type: 'Threat Classification',
+    scope: 'CVSS: 7.5 (High Severity)',
+    mitre: 'T1110 (Brute Force Access)',
     metric: '78% Containment Speedup',
     tech: ['Splunk SIEM', 'Linux Hardening', 'Bash', 'IP Tables'],
     pdfLink: '#'
@@ -29,12 +29,12 @@ const projects = [
   {
     id: 3,
     title: 'Secure Web Platform for Paccha Universal Shipping Line',
-    category: 'Secure Software Dev (SSDLC)',
-    shortDesc: 'Hardened enterprise logistics portal featuring robust role-based access control, multi-factor authentication, and input sanitization.',
-    type: 'Secure Web Development',
-    objective: 'OWASP Top 10 Mitigation',
-    scope: 'Audit Passed (SQLi, XSS)',
-    metric: 'RBAC & MFA Hardened',
+    category: 'Secure SDLC',
+    shortDesc: 'Hardened web applications audit mitigating vulnerabilities in routing, user session variables, authorization parameters, and backend injection vectors.',
+    type: 'OWASP Top 10 Mitigation',
+    scope: 'CVSS: 9.8 (Critical)',
+    mitre: 'T1190 (Exploit Public App)',
+    metric: 'Zero-Exploit Pen-Test Audit',
     tech: ['React', 'Node.js', 'PostgreSQL', 'JWT Auth'],
     pdfLink: '#'
   },
@@ -42,10 +42,10 @@ const projects = [
     id: 4,
     title: 'Automated Vulnerability Scan & Network Hardening Audit',
     category: 'VAPT & Audit',
-    shortDesc: 'A scheduled network vulnerability scanner configured with OpenVAS and custom bash scripts to generate threat advisories.',
+    shortDesc: 'A scheduled network vulnerability scanning scanner configured with OpenVAS and custom bash scripts to generate threat advisories and evaluate subnet exposures.',
     type: 'Security Auditing',
-    objective: 'Mitigate Subnet Risks',
-    scope: '42 CVEs Remediated',
+    scope: 'CVSS: 8.8 (High Severity)',
+    mitre: 'T1595 (Active Scanning)',
     metric: '99% Compliance Score',
     tech: ['OpenVAS', 'Nessus', 'Bash', 'Cron Jobs'],
     pdfLink: '#'
@@ -121,7 +121,7 @@ function ProjectCard({ project }) {
     <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="glass-panel p-6 sm:p-8 rounded-3xl border border-white/5 hover:border-[#00F0FF]/30 hover:shadow-[0_20px_40px_rgba(0,240,255,0.1)] transition-all duration-500 flex flex-col justify-between relative overflow-hidden group h-[525px] bg-black/30"
+      className="glass-panel p-6 sm:p-8 rounded-3xl border border-white/5 hover:border-[#00F0FF]/30 hover:shadow-[0_20px_40px_rgba(0,240,255,0.1)] transition-all duration-500 flex flex-col justify-between relative overflow-hidden group h-[535px] bg-black/30"
     >
       {/* Access Locked Overlay */}
       <div className={`absolute inset-0 bg-black/85 backdrop-blur-[2px] flex flex-col items-center justify-center border border-white/5 pointer-events-none transition-all duration-500 z-20 ${
@@ -178,20 +178,26 @@ function ProjectCard({ project }) {
             <table className="w-full text-left font-mono text-[10px] border-collapse">
               <tbody>
                 <tr className="border-b border-white/[0.03]">
-                  <td className="py-2 text-neutral-500 font-bold uppercase tracking-wider text-[8px]">Type</td>
+                  <td className="py-2 text-neutral-500 font-bold uppercase tracking-wider text-[8px]">Task Vector</td>
                   <td className="py-2 text-right font-sans text-neutral-300">
                     {hovered ? <DecryptText text={project.type} speed={20} /> : project.type}
                   </td>
                 </tr>
                 <tr className="border-b border-white/[0.03]">
-                  <td className="py-2 text-neutral-500 font-bold uppercase tracking-wider text-[8px]">Scope</td>
+                  <td className="py-2 text-neutral-500 font-bold uppercase tracking-wider text-[8px]">Severity Scope</td>
                   <td className="py-2 text-right font-sans text-neutral-300">
                     {hovered ? <DecryptText text={project.scope} speed={20} /> : project.scope}
                   </td>
                 </tr>
+                <tr className="border-b border-white/[0.03]">
+                  <td className="py-2 text-neutral-500 font-bold uppercase tracking-wider text-[8px]">MITRE Mapping</td>
+                  <td className="py-2 text-right font-mono text-[#00F0FF]">
+                    {hovered ? <DecryptText text={project.mitre} speed={20} /> : project.mitre}
+                  </td>
+                </tr>
                 <tr>
-                  <td className="py-2 text-neutral-500 font-bold uppercase tracking-wider text-[8px]">Metric</td>
-                  <td className="py-2 text-right font-bold text-[#00F0FF]">
+                  <td className="py-2 text-neutral-500 font-bold uppercase tracking-wider text-[8px]">Performance Metric</td>
+                  <td className="py-2 text-right font-bold text-white">
                     {hovered ? <DecryptText text={project.metric} speed={20} /> : project.metric}
                   </td>
                 </tr>
@@ -234,7 +240,7 @@ function ProjectCard({ project }) {
 
 export default function EncryptedProjectCards() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch w-full">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch w-full">
       {projects.map((project) => (
         <ProjectCard key={project.id} project={project} />
       ))}
