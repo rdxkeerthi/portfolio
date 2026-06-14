@@ -30,60 +30,62 @@ const ToolLogos = {
     </svg>
   ),
   elk: (
-    <svg className="w-6 h-6 text-[#00F0FF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-      <rect x="3" y="3" width="18" height="18" rx="2" strokeDasharray="3 3" />
-      <circle cx="9" cy="9" r="2" fill="currentColor" />
-      <circle cx="15" cy="15" r="2" fill="currentColor" />
-      <path d="M9 11v2M15 11v2" />
+    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none">
+      <path d="M12 2a10 10 0 0 0-7.1 17.1l1-1A8.5 8.5 0 1 1 12 19v3a10 10 0 0 0 0-20z" fill="#00BFB3"/>
+      <path d="M12 6.5a5.5 5.5 0 0 0-3.9 9.4l1-1A4 4 0 1 1 12 16.5v2a5.5 5.5 0 0 0 0-11z" fill="#FEB628"/>
+      <path d="M12 11a1 1 0 1 0 0 2v1a2 2 0 1 1 0-4v1z" fill="#1E88E5"/>
     </svg>
   ),
   splunk: (
-    <svg className="w-6 h-6 text-[#EF4444]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-      <path d="M7 8l4 4-4 4" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-      <line x1="13" y1="16" x2="17" y2="16" strokeWidth="2.5" strokeLinecap="round" />
-      <rect x="2" y="2" width="20" height="20" rx="3" />
+    <svg className="w-6 h-6 text-[#F92672]" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M4.8 6.2v11.6L12 12 4.8 6.2zm8.4 10.4h6v-2h-6v2z" />
     </svg>
   ),
   burp: (
-    <svg className="w-6 h-6 text-[#1E40AF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-      <circle cx="12" cy="12" r="9" />
-      <path d="M12 3v18M3 12h18" strokeDasharray="2 2" />
-      <rect x="9" y="9" width="6" height="6" rx="1" fill="currentColor" fillOpacity="0.1" />
+    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="12" r="8" stroke="#FF6600" strokeWidth="2" />
+      <circle cx="12" cy="12" r="4" stroke="#FF6600" strokeWidth="1.5" />
+      <path d="M12 2v22M2 12h20" stroke="#FF6600" strokeWidth="1.2" strokeDasharray="2 2" />
+      <rect x="10.5" y="10.5" width="3" height="3" fill="#FF6600" />
     </svg>
   ),
   nmap: (
-    <svg className="w-6 h-6 text-[#00F0FF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+    <svg className="w-6 h-6 text-[#00FF00]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
       <circle cx="12" cy="12" r="10" />
-      <circle cx="12" cy="12" r="5" />
-      <line x1="12" y1="2" x2="12" y2="22" />
-      <line x1="2" y1="12" x2="22" y2="12" />
+      <circle cx="12" cy="12" r="6" />
+      <circle cx="12" cy="12" r="2.5" fill="currentColor" />
+      <path d="M12 2v22M2 12h20" strokeDasharray="3 3" />
     </svg>
   ),
   cuckoo: (
     <svg className="w-6 h-6 text-[#00F0FF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-      <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z" fill="currentColor" fillOpacity="0.05" />
-      <polyline points="7.5 10.5 12 15 16.5 10.5" strokeWidth="1.5" />
+      <path d="M6 2h12v4l-4 4 4 4v4H6v-4l4-4-4-4V2z" fill="currentColor" fillOpacity="0.05" />
+      <line x1="8" y1="5" x2="16" y2="5" strokeWidth="2" />
+      <line x1="8" y1="19" x2="16" y2="19" strokeWidth="2" />
     </svg>
   ),
   android_sdk: (
-    <svg className="w-6 h-6 text-[#1E40AF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-      <rect x="5" y="2" width="14" height="20" rx="2" />
-      <line x1="12" y1="18" x2="12.01" y2="18" strokeWidth="3" strokeLinecap="round" />
-      <path d="M9 5h6" />
+    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none">
+      <path d="M6 18c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2v-5H6v5z" fill="#3DDC84"/>
+      <path d="M8 12h8a8 8 0 0 0-8-8 8 8 0 0 0-8 8" fill="#3DDC84"/>
+      <line x1="6" y1="5" x2="4.5" y2="2.5" stroke="#3DDC84" strokeWidth="1.5" strokeLinecap="round" />
+      <line x1="18" y1="5" x2="19.5" y2="2.5" stroke="#3DDC84" strokeWidth="1.5" strokeLinecap="round" />
+      <circle cx="10" cy="9.5" r="1" fill="#FFFFFF"/>
+      <circle cx="14" cy="9.5" r="1" fill="#FFFFFF"/>
     </svg>
   ),
   aws_cloud: (
-    <svg className="w-6 h-6 text-[#EF4444]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-      <path d="M12 2L2 7l10 5 10-5-10-5z" fill="currentColor" fillOpacity="0.1" />
-      <path d="M2 17l10 5 10-5" />
-      <path d="M2 12l10 5 10-5" />
+    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none">
+      <path d="M18.7 16.5c-2.4 1.8-6.1 2.8-9.2 2.8-4.3 0-8.2-1.8-10.7-4.8-.3-.4 0-.8.4-.6 3 1.4 6.8 2.2 10.3 2.2 3.1 0 6.9-.7 9.5-2.1.5-.2.8.2.7.5z" fill="#FF9900" />
+      <path d="M19.9 14.8c-.3-.4-1.3-.2-1.7-.1-.3.1-.3.3 0 .5.6.4 1.6.3 1.9-.1.2-.2 0-.3-.2-.3z" fill="#FF9900" />
     </svg>
   ),
   code_dev: (
-    <svg className="w-6 h-6 text-[#00F0FF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-      <polyline points="16 18 22 12 16 6" />
-      <polyline points="8 6 2 12 8 18" />
-      <line x1="14" y1="4" x2="10" y2="20" />
+    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none">
+      <path d="M11.9 2C8.3 2 7.7 2.3 7 3c-.7.8-.8 1.9-.8 3.5V8h5.7V8.5H6c-1.5 0-2.3.8-2.9 1.5-.7.8-.8 2-.8 3.6 0 1.6.1 2.7.8 3.5.7.8 1.6 1.4 3 1.4h2v-2.7c0-1.6.7-3.1 1.9-4.1 1.2-1 2.7-1.5 4.3-1.5H20V8c0-1.6-.1-2.7-.8-3.5-.7-.8-1.3-1.5-2.9-1.5c-1.6 0-3.6-1-4.4-1z" fill="#3776AB" />
+      <path d="M12.1 22c3.6 0 4.2-.3 4.9-1 .7-.8.8-1.9.8-3.5V16h-5.7v-.5H18c1.5 0 2.3-.8 2.9-1.5.7-.8.8-2 .8-3.6 0-1.6-.1-2.7-.8-3.5-.7-.8-1.6-1.4-3-1.4h-2v2.7c0 1.6-.7 3.1-1.9 4.1-1.2 1-2.7 1.5-4.3 1.5H4V16c0 1.6.1 2.7.8 3.5.7.8 1.3 1.5 2.9 1.5c1.6 0 3.6 1 4.4 1z" fill="#FFE873" />
+      <circle cx="9" cy="5" r="0.6" fill="#ffffff" />
+      <circle cx="15" cy="19" r="0.6" fill="#111" />
     </svg>
   )
 };
