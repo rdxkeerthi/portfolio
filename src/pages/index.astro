@@ -6,22 +6,28 @@ import EncryptedProjectCards from '../components/EncryptedProjectCards.jsx';
 
 const timelineEvents = [
   {
-    year: '2024 - PRESENT',
-    event: 'CYBERSECURITY OPERATIONS & VAPT SPECIALIST',
-    org: 'Enterprise Threat Management',
-    desc: 'Performing regular vulnerability assessments and penetration testing. Auditing local networks and cloud resources to patch configurations and harden endpoints against intrusion vectors.'
+    year: 'Jun 2026 - Jul 2026',
+    event: 'Cyber Security Intern (Malware Analysis)',
+    org: 'Tamil Nadu Cyber Crime Wing',
+    desc: 'Reduced application triage time by 80% (hours to minutes), automated malicious infrastructure extraction, and contributed to a 40% backlog reduction for state-level law enforcement.'
   },
   {
-    year: '2023 - 2024',
-    event: 'SOC THREAT ANALYST & INCIDENT RESPONSE',
-    org: 'Infrastructure Security Center',
-    desc: 'Integrated log aggregation playbooks in Splunk. Analyzed firewall, web server, and auth syslog metrics to block SSH brute-forces and perform malware threat hunting.'
+    year: 'Nov 2025',
+    event: 'Security Lead',
+    org: 'High-Traffic Web Platform, SEC',
+    desc: 'Led security design for 6,000+ users and 50,000+ requests, implementing OWASP Top 10 controls and traffic log analysis.'
   },
   {
-    year: '2021 - 2024',
-    event: 'BS IN CYBER SECURITY & DIGITAL FORENSICS',
-    org: 'Academic Institution',
-    desc: 'Specialized in computer forensics, secure software lifecycle development, cryptography, database hardening, and network protocols security.'
+    year: 'Jan 2025 - Feb 2025',
+    event: 'SOC Analyst Intern',
+    org: 'Zybeak Technologies',
+    desc: 'Monitored high-volume telemetry, tuned SIEM rules reducing false positives by 30%, and automated log parsing with Python/Bash.'
+  },
+  {
+    year: '2023 - 2027',
+    event: 'BE - Cyber Security',
+    org: 'Saveetha Engineering College',
+    desc: 'Bachelor of Engineering in Cyber Security. Rigorous coursework covering Cryptography, Cloud Security, and Secure Systems Design.'
   }
 ];
 ---
@@ -32,10 +38,10 @@ const timelineEvents = [
     <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
       <a href="#" class="font-bold text-sm tracking-widest flex items-center gap-2 group text-white uppercase">
         <span class="bg-gradient-to-r from-[#1E40AF] to-[#00F0FF] text-black px-2.5 py-1 rounded transition-all font-black text-xs shadow-[0_0_15px_rgba(0,240,255,0.15)]">SEC // OP</span>
-        <span class="tracking-[0.12em] font-extrabold text-xs">Keerthivasan M</span>
+        <span class="tracking-[0.12em] font-extrabold text-xs">KEERTHIVASAN M</span>
       </a>
       <nav class="hidden md:flex gap-8 text-[10px] font-bold uppercase tracking-wider text-neutral-400">
-        <a href="#about" class="hover:text-[#00F0FF] transition-colors flex items-center gap-1">
+        <a href="#profile" class="hover:text-[#00F0FF] transition-colors flex items-center gap-1">
           PROFILE
         </a>
         <a href="#arsenal" class="hover:text-[#00F0FF] transition-colors flex items-center gap-1">
@@ -59,13 +65,67 @@ const timelineEvents = [
     <HeroConsole client:load />
   </section>
 
+  <!-- About Me & Certifications Section -->
+  <section id="profile" class="relative py-24 px-6 sm:px-12 md:px-24 border-b border-white/[0.04] overflow-hidden">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      <div class="lg:col-span-8 space-y-6">
+        <div class="inline-flex">
+          <span class="bg-[#00F0FF]/5 text-[#00F0FF] px-3.5 py-1 rounded-full font-mono text-[9px] uppercase font-bold tracking-widest border border-[#00F0FF]/15 select-none">
+            01 // PROFILE SUMMARY
+          </span>
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-black tracking-tight text-white mb-4 font-sans">
+          Decrypted <span class="text-[#00F0FF]">Operator</span> Profile
+        </h2>
+        <p class="text-sm sm:text-base text-neutral-400 font-mono leading-relaxed border-l-2 border-white/10 pl-6 py-2">
+          Detection-focused cybersecurity engineer with hands-on experience in SOC operations, SIEM engineering, and security telemetry analysis. Proven ability to design, tune, and validate detection logic across network, authentication, cloud, and application logs. Experience building production-grade security systems and automating incident response workflows aligned with modern defensive security practices.
+        </p>
+      </div>
+
+      <div class="lg:col-span-4 space-y-6">
+        <div class="inline-flex">
+          <span class="bg-[#00F0FF]/5 text-[#00F0FF] px-3.5 py-1 rounded-full font-mono text-[9px] uppercase font-bold tracking-widest border border-[#00F0FF]/15 select-none">
+            VERIFIED_CREDS
+          </span>
+        </div>
+        <h3 class="text-lg font-bold tracking-tight text-white font-sans uppercase">
+          Certifications
+        </h3>
+        
+        <div class="space-y-4">
+          {/* Google Cybersecurity Certificate */}
+          <div class="glass-panel p-4 rounded-2xl border border-white/5 bg-black/10 flex items-center gap-4 hover:border-[#00F0FF]/30 transition-all duration-300">
+            <div class="w-10 h-10 rounded-xl bg-[#00F0FF]/10 border border-[#00F0FF]/20 flex items-center justify-center text-[#00F0FF] shrink-0 font-mono text-xs font-black">
+              SEC
+            </div>
+            <div>
+              <h4 class="text-xs font-bold text-white uppercase tracking-wider font-mono">Google Professional</h4>
+              <p class="text-[10px] text-neutral-500 font-mono mt-0.5">Cybersecurity Certificate</p>
+            </div>
+          </div>
+
+          {/* AWS Cloud Solutions Architect */}
+          <div class="glass-panel p-4 rounded-2xl border border-white/5 bg-black/10 flex items-center gap-4 hover:border-[#00F0FF]/30 transition-all duration-300">
+            <div class="w-10 h-10 rounded-xl bg-[#1E40AF]/20 border border-[#1E40AF]/30 flex items-center justify-center text-[#00F0FF] shrink-0 font-mono text-xs font-black">
+              AWS
+            </div>
+            <div>
+              <h4 class="text-xs font-bold text-white uppercase tracking-wider font-mono">AWS Certified</h4>
+              <p class="text-[10px] text-neutral-500 font-mono mt-0.5">Solutions Architect</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Tech Arsenal Section -->
   <section id="arsenal" class="relative py-24 px-6 sm:px-12 md:px-24 border-b border-white/[0.04] overflow-hidden">
     <div class="max-w-6xl mx-auto">
       <div class="mb-16">
         <div class="inline-flex mb-4">
           <span class="bg-[#00F0FF]/5 text-[#00F0FF] px-3.5 py-1 rounded-full font-mono text-[9px] uppercase font-bold tracking-widest border border-[#00F0FF]/15 select-none">
-            01 // CAPABILITIES
+            02 // CAPABILITIES
           </span>
         </div>
         <h2 class="text-3xl sm:text-5xl font-black tracking-tight text-white mb-2 font-sans">
@@ -82,7 +142,7 @@ const timelineEvents = [
       <div class="mb-16">
         <div class="inline-flex mb-4">
           <span class="bg-[#00F0FF]/5 text-[#00F0FF] px-3.5 py-1 rounded-full font-mono text-[9px] uppercase font-bold tracking-widest border border-[#00F0FF]/15 select-none">
-            02 // SECURED VAULTS
+            03 // SECURED VAULTS
           </span>
         </div>
         <h2 class="text-3xl sm:text-5xl font-black tracking-tight text-white mb-2 font-sans">
@@ -99,7 +159,7 @@ const timelineEvents = [
       <div class="mb-16">
         <div class="inline-flex mb-4">
           <span class="bg-[#00F0FF]/5 text-[#00F0FF] px-3.5 py-1 rounded-full font-mono text-[9px] uppercase font-bold tracking-widest border border-[#00F0FF]/15 select-none">
-            03 // CHRONOLOGY
+            04 // CHRONOLOGY
           </span>
         </div>
         <h2 class="text-3xl sm:text-5xl font-black tracking-tight text-white mb-2 font-sans">
@@ -162,7 +222,7 @@ const timelineEvents = [
       <div class="mb-16">
         <div class="inline-flex mb-4">
           <span class="bg-[#00F0FF]/5 text-[#00F0FF] px-3.5 py-1 rounded-full font-mono text-[9px] uppercase font-bold tracking-widest border border-[#00F0FF]/15 select-none">
-            04 // TRANSMISSIONS
+            05 // TRANSMISSIONS
           </span>
         </div>
         <h2 class="text-3xl sm:text-5xl font-black tracking-tight text-white mb-2 font-sans">
@@ -278,13 +338,21 @@ const timelineEvents = [
               SECURE CHANNELS
             </h3>
             <div class="flex flex-col gap-3 font-mono text-[10px]">
-              <a href="https://linkedin.com" target="_blank" class="glass-card p-3 flex items-center gap-3 border border-white/5 hover:border-[#00F0FF]/20 hover:shadow-[0_0_15px_rgba(0,240,255,0.08)] transition-all">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" class="text-[#00F0FF]"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-                <span>LinkedIn</span>
+              <a href="mailto:keerthivasanm.student@saveetha.ac.in" class="glass-card p-3 flex items-center gap-3 border border-white/5 hover:border-[#00F0FF]/20 hover:shadow-[0_0_15px_rgba(0,240,255,0.08)] transition-all">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" class="text-[#00F0FF]"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                <span class="truncate">keerthivasanm.student@saveetha.ac.in</span>
               </a>
-              <a href="https://github.com" target="_blank" class="glass-card p-3 flex items-center gap-3 border border-white/5 hover:border-[#00F0FF]/20 hover:shadow-[0_0_15px_rgba(0,240,255,0.08)] transition-all">
+              <a href="tel:+916374598827" class="glass-card p-3 flex items-center gap-3 border border-white/5 hover:border-[#00F0FF]/20 hover:shadow-[0_0_15px_rgba(0,240,255,0.08)] transition-all">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" class="text-[#00F0FF]"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                <span>+91-63745-98827</span>
+              </a>
+              <a href="https://linkedin.com/in/rdxkeerthi" target="_blank" class="glass-card p-3 flex items-center gap-3 border border-white/5 hover:border-[#00F0FF]/20 hover:shadow-[0_0_15px_rgba(0,240,255,0.08)] transition-all">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" class="text-[#00F0FF]"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                <span class="truncate">linkedin.com/in/rdxkeerthi</span>
+              </a>
+              <a href="https://github.com/rdxkeerthi" target="_blank" class="glass-card p-3 flex items-center gap-3 border border-white/5 hover:border-[#00F0FF]/20 hover:shadow-[0_0_15px_rgba(0,240,255,0.08)] transition-all">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" class="text-[#00F0FF]"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
-                <span>GitHub</span>
+                <span class="truncate">github.com/rdxkeerthi</span>
               </a>
             </div>
           </div>

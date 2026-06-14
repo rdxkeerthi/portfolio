@@ -19,7 +19,7 @@ export default function HeroConsole() {
 
           {/* Decrypted Headline */}
           <h1 className="text-4xl sm:text-6xl md:text-7xl font-sans font-black tracking-tight text-white leading-none">
-            <DecryptText text="Keerthivasan M" speed={30} />
+            <DecryptText text="KEERTHIVASAN M" speed={30} />
             <span className="block text-xl sm:text-2xl md:text-3xl mt-3 text-neutral-400 font-mono font-medium">
               <DecryptText text="Securing Perimeters. Hunting Threats." speed={20} delay={400} />
             </span>
@@ -27,7 +27,7 @@ export default function HeroConsole() {
 
           {/* Subhead */}
           <p className="text-xs sm:text-sm md:text-base text-neutral-400 font-mono tracking-wide max-w-2xl border-l-2 border-[#00F0FF] pl-4 py-1.5">
-            Vulnerability Assessment | Penetration Testing | SOC Investigation
+            Malware Analysis | SOC Operations | Cloud Security
           </p>
 
           {/* CTA */}
