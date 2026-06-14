@@ -53,7 +53,7 @@ const projects = [
 
 function ProjectCard({ project }) {
   return (
-    <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-white/5 hover:border-[#00F0FF]/25 hover:shadow-[0_20px_50px_rgba(0,0,0,0.8)] transition-all duration-500 flex flex-col justify-between relative overflow-hidden group h-[500px] bg-black/20 hover:scale-[1.01]">
+    <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-white/5 hover:border-[#00F0FF]/25 hover:shadow-[0_20px_50px_rgba(0,0,0,0.8)] transition-all duration-500 flex flex-col justify-between relative overflow-hidden group h-full bg-black/20 hover:scale-[1.01]">
       
       {/* Subtle radial ambient glow on card hover */}
       <div className="absolute -right-12 -top-12 w-28 h-28 bg-[#1E40AF]/5 group-hover:bg-[#00F0FF]/10 rounded-full blur-2xl transition-colors duration-500 pointer-events-none"></div>

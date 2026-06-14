@@ -107,23 +107,26 @@ const timelineEvents = [
         </h2>
       </div>
 
-      <!-- Log Timeline Core -->
-      <div class="relative pl-6 sm:pl-10 md:pl-16">
-        <!-- GSAP Scroll-animated traceroute line -->
-        <div class="absolute left-[8px] sm:left-[12px] md:left-[18px] top-2 bottom-2 w-[2px] bg-white/5">
+      <!-- Log Timeline Core (Alternating Layout) -->
+      <div class="relative max-w-5xl mx-auto px-4 overflow-hidden">
+        <!-- Central Line (Desktop Only, Left-aligned on Mobile) -->
+        <div class="absolute left-6 md:left-1/2 md:-translate-x-1/2 top-2 bottom-2 w-[2px] bg-white/5">
           <div class="traceroute-line w-full bg-[#00F0FF]/60 shadow-[0_0_8px_rgba(0,240,255,0.4)]" style="height: 0%;"></div>
         </div>
 
-        <div class="space-y-12">
-          {timelineEvents.map((log) => (
-            <div class="timeline-event opacity-25 relative select-none">
-              <!-- Bullet Node Indicator -->
-              <div class="absolute -left-[25px] sm:-left-[33px] md:-left-[41px] top-2.5 bg-[#050811] border border-white/20 w-3 h-3 rounded-full flex items-center justify-center z-10 transition-all duration-300">
-                <div class="w-1 h-1 bg-[#00F0FF] rounded-full"></div>
+        <div class="space-y-16">
+          {timelineEvents.map((log, index) => {
+            const isLeft = index % 2 === 0;
+            return (
+              <div class={`timeline-event opacity-25 flex flex-col md:flex-row items-center w-full relative ${isLeft ? 'md:justify-start' : 'md:justify-end'}`}>
+              <!-- Center Node Dot -->
+              <div class="absolute left-6 md:left-1/2 -translate-x-1/2 top-6 md:top-1/2 md:-translate-y-1/2 bg-[#050811] border border-white/20 w-4 h-4 rounded-full flex items-center justify-center z-10 transition-all duration-300">
+                <div class="w-1.5 h-1.5 bg-[#00F0FF] rounded-full"></div>
               </div>
 
-              <!-- Sleek Card Panel -->
-              <div class="glass-panel p-6 border border-white/5 rounded-2xl bg-black/10">
+              <!-- Event Card Container -->
+              <div class={`w-full md:w-[45%] pl-12 md:pl-0 ${isLeft ? 'md:pr-8' : 'md:pl-8'}`}>
+                <div class="glass-panel p-6 sm:p-8 border border-white/5 rounded-3xl bg-black/10 hover:border-[#00F0FF]/20 transition-all duration-500 hover:scale-[1.02]">
                 <div class="flex flex-wrap items-center justify-between gap-2 border-b border-white/5 pb-2.5 mb-3.5 font-mono text-[9px]">
                   <span class="text-neutral-500 font-bold">{log.year}</span>
                   <span class="text-[#00F0FF] uppercase tracking-wider bg-[#00F0FF]/5 px-2 py-0.5 rounded border border-[#00F0FF]/15">
@@ -145,7 +148,9 @@ const timelineEvents = [
                 </p>
               </div>
             </div>
-          ))}
+          </div>
+          );
+          })}
         </div>
       </div>
     </div>
@@ -311,15 +316,24 @@ const timelineEvents = [
         });
       }
 
-      // Timeline nodes reveal
+      // Timeline nodes reveal (Alternating slide & fade animation)
       const events = document.querySelectorAll('.timeline-event');
-      events.forEach((event) => {
+      events.forEach((event, idx) => {
+        const isLeft = idx % 2 === 0;
+        const xOffset = window.innerWidth >= 768 ? (isLeft ? -40 : 40) : 0;
+
+        // Set initial state
+        gsap.set(event, { x: xOffset, opacity: 0.1 });
+
         gsap.to(event, {
+          x: 0,
           opacity: 1,
+          duration: 0.8,
+          ease: 'power2.out',
           scrollTrigger: {
             trigger: event,
-            start: 'top 80%',
-            end: 'bottom 20%',
+            start: 'top 85%',
+            end: 'bottom 15%',
             toggleActions: 'play none none reverse'
           }
         });
