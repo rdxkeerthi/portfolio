@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=JetBrains+Mono:wght@100..800&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', Courier, monospace;
+
+  --color-brand-primary: #ffffff;
+  --color-dark-bg: #0B0F19;
+  --color-dark-surface: #0e1322;
+  --color-dark-card: #141b2d;
+  
+  --color-accent-cobalt: #1E40AF;
+  --color-accent-cyan: #00F0FF;
+}
+
+/* Custom smooth scrolling and page defaults */
+html {
+  scroll-behavior: initial; /* Lenis handles smooth scroll */
+  background-color: var(--color-dark-bg);
+  color: #f4f4f5;
+  overflow-x: hidden;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0B0F19;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 240, 255, 0.15);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 240, 255, 0.4);
+}
+
+/* Cyber grid systems */
+.cyber-grid {
+  position: absolute;
+  inset: 0;
+  background-size: 26px 26px;
+  background-image: radial-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.flashlight {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background: radial-gradient(circle 320px at var(--mouse-x, -1000px) var(--mouse-y, -1000px), rgba(0, 240, 255, 0.05) 0%, rgba(30, 64, 175, 0.02) 50%, transparent 100%);
+}
+
+/* Glassmorphic vaults */
+.glass-panel {
+  background: rgba(14, 19, 34, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 240, 255, 0.06);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-panel:hover {
+  background: rgba(14, 19, 34, 0.75);
+  border-color: rgba(0, 240, 255, 0.25);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.8), 0 0 30px -5px rgba(0, 240, 255, 0.08);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.01);
+  border: 1px solid rgba(0, 240, 255, 0.05);
+  border-radius: 12px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.02);
+  border-color: rgba(0, 240, 255, 0.2);
+}
+
+/* Lenis scroll CSS integration */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis-smooth {
+  scroll-behavior: dev-only;
+}
+
+.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* GSAP timeline drawing path styles */
+.traceroute-path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+
+/* Terminal boots and blinking cursors */
+.cursor-blink {
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  from, to { border-color: transparent }
+  50% { border-color: #00F0FF }
+}
+
+/* Fade slide up reveals */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}

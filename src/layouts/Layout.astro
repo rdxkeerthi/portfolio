@@ -1,0 +1,99 @@
+---
+import '../styles/global.css';
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const { 
+	title = "Keerthivasan M | Cybersecurity Professional & UI/UX Architect",
+	description = "Portfolio of Keerthivasan M, a Cybersecurity Professional specializing in VAPT, SOC investigations, threat hunting, and secure UI/UX architecting."
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		
+		<!-- Primary Meta Tags -->
+		<title>{title}</title>
+		<meta name="title" content={title} />
+		<meta name="description" content={description} />
+
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+
+		<!-- Twitter -->
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:title" content={title} />
+		<meta property="twitter:description" content={description} />
+	</head>
+	<body class="bg-[#0B0F19] text-neutral-100 font-sans min-h-screen selection:bg-[#00F0FF]/25 selection:text-[#00F0FF] antialiased overflow-x-hidden relative">
+		
+		<!-- Subtle Static Grid Background -->
+		<div class="cyber-grid"></div>
+
+		<!-- Flashlight Mouse Follower Effect -->
+		<div class="flashlight"></div>
+
+		<!-- Main Page Container -->
+		<div class="relative z-10 w-full">
+			<slot />
+		</div>
+
+		<!-- Smooth Scroll and Flashlight tracking script -->
+		<script>
+			import Lenis from 'lenis';
+
+			document.addEventListener("DOMContentLoaded", () => {
+				// Initialize Lenis smooth scroll
+				const lenis = new Lenis({
+					duration: 1.2,
+					easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+					touchMultiplier: 2,
+				});
+
+				function raf(time: number) {
+					lenis.raf(time);
+					requestAnimationFrame(raf);
+				}
+				requestAnimationFrame(raf);
+
+				// Update mouse coordinates for the flashlight glow effect
+				window.addEventListener('mousemove', (e) => {
+					document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
+					document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
+				});
+
+				// Touch tracking for mobile support
+				window.addEventListener('touchmove', (e) => {
+					if (e.touches.length > 0) {
+						document.documentElement.style.setProperty('--mouse-x', `${e.touches[0].clientX}px`);
+						document.documentElement.style.setProperty('--mouse-y', `${e.touches[0].clientY}px`);
+					}
+				});
+
+				// Intersection Observer for scroll reveal elements
+				const observer = new IntersectionObserver((entries) => {
+					entries.forEach(entry => {
+						if (entry.isIntersecting) {
+							entry.target.classList.add("active");
+						}
+					});
+				}, {
+					threshold: 0.05,
+					rootMargin: "0px 0px -50px 0px"
+				});
+
+				document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+			});
+		</script>
+	</body>
+</html>
