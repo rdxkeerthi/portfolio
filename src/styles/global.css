@@ -133,3 +133,20 @@ html.lenis, html.lenis body {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* Scanner Line Animation */
+.animate-scan {
+  animation: scan-line 3s linear infinite;
+}
+
+@keyframes scan-line {
+  0% {
+    top: 0%;
+  }
+  50% {
+    top: 100%;
+  }
+  100% {
+    top: 0%;
+  }
+}

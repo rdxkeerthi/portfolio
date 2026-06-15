@@ -14,7 +14,7 @@ export default function HeroConsole() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00F0FF] opacity-75"></span>
               <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#00F0FF]"></span>
             </span>
-            SYSTEM STATUS: SECURE
+            PORTFOLIO // STUDENT
           </div>
 
           {/* Decrypted Headline */}
@@ -36,13 +36,13 @@ export default function HeroConsole() {
               href="#projects"
               className="px-8 py-4 bg-[#1E40AF]/25 hover:bg-[#00F0FF] text-white hover:text-black font-mono text-xs uppercase font-extrabold tracking-widest border border-[#1E40AF]/40 hover:border-[#00F0FF] rounded-xl transition-all duration-300 shadow-[0_0_20px_rgba(0,240,255,0.05)] hover:shadow-[0_0_25px_rgba(0,240,255,0.3)] text-center cursor-pointer"
             >
-              [ View Audited Projects ]
+              [ View Projects ]
             </a>
             <a
               href="#contact"
               className="px-8 py-4 bg-transparent hover:bg-white/5 text-neutral-300 hover:text-white font-mono text-xs uppercase font-extrabold tracking-widest border border-white/10 hover:border-white/20 rounded-xl transition-all duration-300 text-center cursor-pointer"
             >
-              // Contact Operator
+              // Contact Me
             </a>
           </div>
         </div>
@@ -65,8 +65,8 @@ export default function HeroConsole() {
 
             {/* Identity HUD Tag */}
             <div className="mt-4 flex justify-between items-center font-mono text-[10px] text-neutral-500 px-1 border-t border-white/5 pt-3">
-              <span className="text-neutral-400 font-bold">OPERATOR_ID: K-8812</span>
-              <span className="text-[#00F0FF] uppercase tracking-wider">SEC_L3 CLEARANCE</span>
+              <span className="text-neutral-400 font-bold">CLASS OF 2027</span>
+              <span className="text-[#00F0FF] uppercase tracking-wider">B.E. CYBER SECURITY</span>
             </div>
           </div>
         </div>

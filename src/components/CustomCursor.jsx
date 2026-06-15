@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 
 export default function CustomCursor() {
   const [isVisible, setIsVisible] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+  const [touchActive, setTouchActive] = useState(false);
   const [catState, setCatState] = useState('idle'); // 'idle' | 'running' | 'sleeping'
   const [catDirection, setCatDirection] = useState('right'); // 'left' | 'right'
   const [runFrame, setRunFrame] = useState(0); // 0 or 1 leg frame
@@ -17,27 +19,58 @@ export default function CustomCursor() {
   const animationFrameId = useRef(null);
   const idleTimer = useRef(0);
   const frameCounter = useRef(0);
+  const hasMoved = useRef(false);
 
   useEffect(() => {
-    // Disable on mobile/touch interfaces
     const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    if (isTouch || window.innerWidth < 768) {
-      return;
-    }
-
+    setIsTouchDevice(isTouch);
     setIsVisible(true);
-    document.body.classList.add('custom-cursor-enabled');
+
+    if (!isTouch) {
+      document.body.classList.add('custom-cursor-enabled');
+    }
 
     // Initialize cat to center of screen
     catPos.current = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
 
     const handleMouseMove = (e) => {
+      hasMoved.current = true;
       mousePos.current = { x: e.clientX, y: e.clientY };
 
       // Instantly position the hacker cursor via CSS transforms for zero lag
       if (cursorRef.current) {
         cursorRef.current.style.transform = `translate3d(${e.clientX - 12}px, ${e.clientY - 12}px, 0)`;
       }
+    };
+
+    const handleTouchStart = (e) => {
+      hasMoved.current = true;
+      setTouchActive(true);
+      if (e.touches && e.touches[0]) {
+        const x = e.touches[0].clientX;
+        const y = e.touches[0].clientY;
+        mousePos.current = { x, y };
+        if (cursorRef.current) {
+          cursorRef.current.style.transform = `translate3d(${x - 12}px, ${y - 12}px, 0)`;
+        }
+      }
+    };
+
+    const handleTouchMove = (e) => {
+      hasMoved.current = true;
+      setTouchActive(true);
+      if (e.touches && e.touches[0]) {
+        const x = e.touches[0].clientX;
+        const y = e.touches[0].clientY;
+        mousePos.current = { x, y };
+        if (cursorRef.current) {
+          cursorRef.current.style.transform = `translate3d(${x - 12}px, ${y - 12}px, 0)`;
+        }
+      }
+    };
+
+    const handleTouchEnd = () => {
+      setTouchActive(false);
     };
 
     const handleMouseOver = (e) => {
@@ -59,9 +92,18 @@ export default function CustomCursor() {
 
     window.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseover', handleMouseOver);
+    window.addEventListener('touchstart', handleTouchStart, { passive: true });
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
+    window.addEventListener('touchend', handleTouchEnd, { passive: true });
+    window.addEventListener('touchcancel', handleTouchEnd, { passive: true });
 
     // Oneko-style cat physics loop
     const updateLoop = () => {
+      if (!hasMoved.current) {
+        animationFrameId.current = requestAnimationFrame(updateLoop);
+        return;
+      }
+
       const dx = mousePos.current.x - catPos.current.x;
       const dy = mousePos.current.y - catPos.current.y;
       const dist = Math.hypot(dx, dy);
@@ -108,6 +150,10 @@ export default function CustomCursor() {
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseover', handleMouseOver);
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('touchend', handleTouchEnd);
+      window.removeEventListener('touchcancel', handleTouchEnd);
       document.body.classList.remove('custom-cursor-enabled');
       if (animationFrameId.current) {
         cancelAnimationFrame(animationFrameId.current);
@@ -122,7 +168,11 @@ export default function CustomCursor() {
       {/* 1. Hacker Target Crosshair Cursor */}
       <div
         ref={cursorRef}
-        className="fixed top-0 left-0 w-6 h-6 pointer-events-none z-[9999] transition-transform duration-[0.01s] ease-out flex items-center justify-center text-[#00F0FF]"
+        style={{
+          opacity: isTouchDevice ? (touchActive ? 1 : 0) : 1,
+          transition: isTouchDevice ? 'opacity 0.2s ease' : undefined,
+        }}
+        className="fixed top-0 left-0 w-6 h-6 pointer-events-none z-[9999] flex items-center justify-center text-[#00F0FF]"
       >
         <svg
           width="24"
