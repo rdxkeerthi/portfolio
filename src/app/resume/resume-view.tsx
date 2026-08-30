@@ -50,14 +50,14 @@ export default function ResumeView() {
         </motion.div>
       </div>
 
-      {/* PDF viewer — centered on mobile (short A4 card), top-aligned on desktop (tall) */}
-      <div className="mx-auto flex w-full max-w-4xl flex-1 items-center justify-center px-2 pb-6 md:items-start md:px-4 md:pb-24">
+      {/* PDF viewer — tall on mobile, proportional A4 card on desktop */}
+      <div className="mx-auto flex w-full max-w-4xl flex-1 items-center justify-center px-3 pb-6 md:items-start md:px-4 md:pb-24">
         {/* opacity-only animation: a transformed ancestor would trap the fixed doodle FAB */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="aspect-[210/297] w-full overflow-hidden rounded-2xl bg-white shadow-xl"
+          className="w-full h-[78vh] md:h-auto md:aspect-[210/297] overflow-hidden rounded-2xl bg-white shadow-2xl border border-border/40"
         >
           <ResumeDoodle
             src={resumeSrc}

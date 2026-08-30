@@ -219,7 +219,7 @@ const projects: Project[] = [
     id: "malware-analysis",
     category: "Cybersecurity & Forensics",
     title: "Automated Malware Analysis Platform",
-    src: "/assets/projects-screenshots/storekit/landing.png",
+    src: "/assets/projects-screenshots/malware-analysis/landing.png",
     screenshots: ["landing.png"],
     skills: {
       frontend: [
@@ -265,7 +265,7 @@ const projects: Project[] = [
     id: "post-quantum-tls",
     category: "Post-Quantum Cryptography & Security",
     title: "Post-Quantum TLS Readiness & Downgrade Attack Simulator",
-    src: "/assets/projects-screenshots/codingducks/landing.png",
+    src: "/assets/projects-screenshots/post-quantum-tls/landing.png",
     screenshots: ["landing.png"],
     skills: {
       frontend: [
@@ -311,7 +311,7 @@ const projects: Project[] = [
     id: "cloud-ddos-mitigation",
     category: "Cloud Infrastructure Defense",
     title: "Cloud DDoS Mitigation System",
-    src: "/assets/projects-screenshots/gumbalup/landing.png",
+    src: "/assets/projects-screenshots/cloud-ddos-mitigation/landing.png",
     screenshots: ["landing.png"],
     skills: {
       frontend: [
@@ -357,8 +357,8 @@ const projects: Project[] = [
     id: "biometric-ml-stress",
     category: "AI & Biometric Security",
     title: "Biometric ML Threat Detection & Authentication",
-    src: "/assets/projects-screenshots/kanbi/landing.png",
-    screenshots: ["landing.png"],
+    src: "/assets/projects-screenshots/biometric-ml-stress/landing.svg",
+    screenshots: ["landing.svg"],
     skills: {
       frontend: [
         PROJECT_SKILLS.python,

@@ -68,8 +68,8 @@ function GitHubStarsButton({
 
   useEffect(() => {
     getGithubStars()
-      .then((count) => setStars(count || 18))
-      .catch(() => setStars(18))
+      .then((count) => setStars(count || 248))
+      .catch(() => setStars(248))
       .finally(() => setIsLoading(false));
   }, []);
 

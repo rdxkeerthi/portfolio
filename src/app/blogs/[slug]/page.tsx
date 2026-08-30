@@ -38,7 +38,42 @@ function formatDate(dateStr: string) {
   });
 }
 
+import {
+  Callout,
+  Terminal,
+  StatGrid,
+  StatCard,
+  ArchitectureBox,
+  Mermaid,
+} from "@/components/mdx/mdx-components";
+
 const components = {
+  Callout,
+  Terminal,
+  StatGrid,
+  StatCard,
+  ArchitectureBox,
+  Mermaid,
+  table: (props: any) => (
+    <div className="my-8 w-full overflow-x-auto rounded-xl border border-border/60 bg-slate-950/60 shadow-lg">
+      <table className="w-full text-left text-sm font-sans border-collapse" {...props} />
+    </div>
+  ),
+  thead: (props: any) => (
+    <thead className="bg-slate-900/90 border-b border-border/70 text-xs uppercase tracking-wider font-mono text-cyan-300" {...props} />
+  ),
+  tbody: (props: any) => (
+    <tbody className="divide-y divide-border/40 font-mono text-xs" {...props} />
+  ),
+  tr: (props: any) => (
+    <tr className="hover:bg-white/[0.03] transition-colors" {...props} />
+  ),
+  th: (props: any) => (
+    <th className="px-4 py-3.5 font-semibold text-foreground" {...props} />
+  ),
+  td: (props: any) => (
+    <td className="px-4 py-3.5 text-muted-foreground whitespace-nowrap" {...props} />
+  ),
   h1: (props: any) => (
     <h1
       className="font-display text-2xl md:text-3xl leading-[1.15] mt-14 mb-6 text-foreground"
@@ -47,7 +82,7 @@ const components = {
   ),
   h2: (props: any) => (
     <h2
-      className="font-display text-xl md:text-2xl leading-[1.2] mt-12 mb-4 text-foreground relative"
+      className="font-display text-xl md:text-2xl leading-[1.2] mt-12 mb-4 text-foreground relative flex items-center gap-2"
       {...props}
     />
   ),
@@ -86,13 +121,13 @@ const components = {
   ),
   code: (props: any) => (
     <code
-      className="bg-muted/50 text-[hsl(20,100%,65%)] px-1.5 py-0.5 rounded text-[15px] font-mono"
+      className="bg-muted/50 text-cyan-400 px-1.5 py-0.5 rounded text-[15px] font-mono"
       {...props}
     />
   ),
   pre: (props: any) => (
     <pre
-      className="bg-[hsl(222,84%,3%)] p-5 rounded-xl overflow-x-auto mb-8 border border-border/50 text-sm leading-relaxed"
+      className="bg-[#090d16] p-5 rounded-xl overflow-x-auto mb-8 border border-border/60 text-sm leading-relaxed font-mono shadow-xl text-slate-200"
       {...props}
     />
   ),
