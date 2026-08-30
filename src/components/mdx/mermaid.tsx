@@ -1,34 +1,6 @@
 "use client";
 
 import React, { useEffect, useId, useState } from "react";
-import mermaid from "mermaid";
-
-mermaid.initialize({
-  startOnLoad: false,
-  theme: "dark",
-  securityLevel: "loose",
-  themeVariables: {
-    fontFamily: "Space Grotesk, Inter, monospace",
-    darkMode: true,
-    background: "#080d1a",
-    mainBkg: "#0f172a",
-    lineColor: "#38bdf8",
-    primaryColor: "#0f172a",
-    primaryTextColor: "#f8fafc",
-    primaryBorderColor: "#06b6d4",
-    secondaryColor: "#1e293b",
-    secondaryTextColor: "#f8fafc",
-    secondaryBorderColor: "#38bdf8",
-    tertiaryColor: "#020617",
-    tertiaryTextColor: "#94a3b8",
-    tertiaryBorderColor: "#64748b",
-    edgeLabelBackground: "#0b1329",
-    nodeBorder: "#06b6d4",
-    clusterBkg: "rgba(15, 23, 42, 0.6)",
-    clusterBorder: "rgba(56, 189, 248, 0.4)",
-    titleColor: "#38bdf8",
-  },
-});
 
 export function Mermaid({
   chart,
@@ -47,6 +19,36 @@ export function Mermaid({
 
     async function renderChart() {
       try {
+        const mermaidModule = await import("mermaid");
+        const mermaid = mermaidModule.default;
+
+        mermaid.initialize({
+          startOnLoad: false,
+          theme: "dark",
+          securityLevel: "loose",
+          themeVariables: {
+            fontFamily: "Space Grotesk, Inter, monospace",
+            darkMode: true,
+            background: "#080d1a",
+            mainBkg: "#0f172a",
+            lineColor: "#38bdf8",
+            primaryColor: "#0f172a",
+            primaryTextColor: "#f8fafc",
+            primaryBorderColor: "#06b6d4",
+            secondaryColor: "#1e293b",
+            secondaryTextColor: "#f8fafc",
+            secondaryBorderColor: "#38bdf8",
+            tertiaryColor: "#020617",
+            tertiaryTextColor: "#94a3b8",
+            tertiaryBorderColor: "#64748b",
+            edgeLabelBackground: "#0b1329",
+            nodeBorder: "#06b6d4",
+            clusterBkg: "rgba(15, 23, 42, 0.6)",
+            clusterBorder: "rgba(56, 189, 248, 0.4)",
+            titleColor: "#38bdf8",
+          },
+        });
+
         const uniqueId = `mermaid_${id}_${Math.floor(Math.random() * 10000)}`;
         const { svg } = await mermaid.render(uniqueId, cleanChart);
         if (isMounted) {
