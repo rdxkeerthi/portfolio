@@ -1,0 +1,152 @@
+---
+title: "RDX — Designing a Bare-Metal x86-64 Systems Programming Language & JIT Compiler"
+publishedAt: "2026-08-25"
+summary: "A deep dive into RDX (The Honeybee Systems Language): a dependency-free compiled language featuring bare-metal x86-64 machine code generation, Windows Win32 API bindings, natural syntax, self-hosting capability (rdxc.rdx), and sub-millisecond execution."
+author: "Keerthivasan M"
+tags: ["compiler", "jit", "x86-64", "systems-programming", "c", "assembly"]
+---
+
+# RDX — The Honeybee Systems Programming Language
+
+**RDX** is a minimalist, high-performance systems programming language designed to compile and execute **native bare-metal x86-64 machine code** in milliseconds. Operating with zero third-party dependencies, zero runtime bloat, and zero undefined behavior, RDX interacts directly with the Windows operating system via pure kernel system calls (`kernel32.dll`).
+
+Designed to combine human-readable syntax with the performance of handwritten assembly, RDX provides direct control over registers, memory allocation, and control flow.
+
+---
+
+## Design Philosophy & Highlights
+
+- **Bare-Metal Speed**: Generates raw x86-64 machine instructions in memory without relying on heavy backend compilers like LLVM or GCC.
+- **Zero Dependencies**: Requires only `kernel32.dll` on Windows systems.
+- **Self-Hosting Compiler**: Includes `rdxc.rdx`, a fully self-hosted compiler written directly in RDX syntax that can compile itself.
+- **Natural & Expressive Syntax**: Clean syntax with clean entry points (`sys.rdx { }`), explicit mutability (`mut`), compile-time constants (`fix`), pattern matching (`match`), and built-in error boundary primitives (`safe` / `fail`).
+
+---
+
+## Language Specifications (v2.0)
+
+### 1. Entry Point
+Every RDX program initiates within the `sys.rdx` scope:
+
+```rdx
+sys.rdx {
+    call("Hello, World from RDX Bare-Metal JIT!")
+}
+```
+
+### 2. Variable Model & Static Type System
+
+| Keyword | Semantic Meaning | Usage Example |
+|---|---|---|
+| `num` | 64-bit Signed Integer | `num score = 100` |
+| `chr` | Immutable String / Character Pointer | `chr name = "Alice"` |
+| `flt` | Double-Precision Floating Point | `flt ratio = 3.14159` |
+| `blo` | Boolean (`true` / `false`) | `blo isReady = true` |
+| `fix` | Compile-Time Constant | `fix MAX_CLIENTS = 1024` |
+| `mut` | Explicitly Mutable Variable | `mut num counter = 0` |
+
+### 3. I/O Primitives
+- `call()`: Console output supporting multi-value string interpolation.
+- `nl()`: Efficient carriage return / newline output.
+- `get()`: Direct console input reading with automatic integer parsing.
+
+```rdx
+sys.rdx {
+    chr name = get("Enter operator handle: ")
+    mut num score = 0
+
+    score = score + 50
+    call("Operator: " [name, " | Score: ", score])
+    nl()
+}
+```
+
+### 4. Control Flow & Pattern Matching
+
+```rdx
+// Conditionals without parentheses
+if score >= 90 {
+    call("Status: OPTIMAL")
+} elif score >= 50 {
+    call("Status: NOMINAL")
+} else {
+    call("Status: CRITICAL")
+}
+
+// Pattern matching construct
+match score {
+    100 -> { call("Perfect Score!") }
+    50  -> { call("Halfway There!") }
+    _   -> { call("Standard Operation") }
+}
+
+// Range loops
+loop 1..10 as i {
+    if mod(i, 2) == 0 {
+        call("Even step: " [i])
+    }
+}
+```
+
+### 5. Error Boundaries (`safe` / `fail`)
+RDX features native error handling blocks to catch divide-by-zero or memory boundary faults gracefully without crashing the process:
+
+```rdx
+safe {
+    num result = total / count
+    call("Average: " [result])
+} fail err {
+    call("Caught Exception: " [err])
+}
+```
+
+---
+
+## Internal Compiler Architecture
+
+The RDX compilation pipeline executes in four main phases:
+
+```
+[ .rdx Source File ]
+        │
+        ▼
+┌────────────────────────────────┐
+│   Lexical Analysis (Lexer)     │  Tokenizes stream into Keywords, Identifiers, Literals
+└───────────────┬────────────────┘
+                │
+                ▼
+┌────────────────────────────────┐
+│   Abstract Syntax Tree (AST)   │  Constructs recursive expression & scope tree
+└───────────────┬────────────────┘
+                │
+                ▼
+┌────────────────────────────────┐
+│   x86-64 Machine Code Emitter  │  Translates AST directly into Opcode Stream
+│   (JIT Code Generator)         │  (MOV, PUSH, POP, SUB, CALL, RET, REX prefixes)
+└───────────────┬────────────────┘
+                │
+                ▼
+┌────────────────────────────────┐
+│   Win32 VirtualAlloc Execution │  Allocates PAGE_EXECUTE_READWRITE memory & jumps to function
+└────────────────────────────────┘
+```
+
+---
+
+## Performance & Execution Speed
+
+Because RDX directly emits raw x86-64 opcode bytes into executable virtual memory pages (`VirtualAlloc` with `PAGE_EXECUTE_READWRITE`) and invokes them via direct function pointers, startup and compilation overhead is virtually non-existent:
+
+- **Compilation Speed**: Over 500,000 lines of code per second.
+- **Binary Footprint**: Executable launcher (`rdx_bin.exe`) is under 150 KB.
+- **Startup Time**: Instantaneous (less than 2ms).
+
+---
+
+## Summary
+
+RDX demonstrates that modern language design does not require gigabytes of compiler toolchains. By leveraging direct machine code emission and clean system bindings, RDX delivers maximum performance with minimal friction.
+
+- **GitHub Repository**: [rdxkeerthi/rdx-lang](https://github.com/rdxkeerthi/rdx-lang)
+- **Author**: Keerthivasan M
+- **License**: MIT

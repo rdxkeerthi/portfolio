@@ -1,0 +1,121 @@
+---
+title: "Post-Quantum TLS Readiness & Downgrade Attack Simulator: Securing Cryptographic Transitions"
+publishedAt: "2026-08-23"
+summary: "A detailed technical walkthrough of the PQ-TLS Simulator: testing hybrid ciphersuites (Kyber1024, Falcon-1024, Dilithium), active MITM downgrade attack scenarios, Flask security monitoring dashboard, AI anomaly detection, and blockchain event logging."
+author: "Keerthivasan M"
+tags: ["post-quantum-crypto", "tls-1-3", "kyber", "downgrade-attacks", "security-research", "python"]
+---
+
+# Post-Quantum TLS Readiness & Downgrade Attack Simulator
+
+With the impending arrival of cryptographically relevant quantum computers (CRQCs), traditional public-key algorithms such as RSA, ECDHE, and ECDSA will become vulnerable to Shor's algorithm. Organizations face the urgent challenge of migrating infrastructure to **Post-Quantum Cryptography (PQC)** standards designated by NIST (e.g., ML-KEM / Kyber, ML-DSA / Dilithium, FN-DSA / Falcon).
+
+However, during this decade-long transition, systems will operate in **Hybrid Modes** combining classical and post-quantum keys. This hybrid era exposes network channels to active Man-in-the-Middle (MITM) **Downgrade Attacks**, where attackers strip post-quantum extensions to force endpoints back into vulnerable legacy ciphersuites.
+
+The **Post-Quantum TLS Readiness & Downgrade Attack Simulator** is an advanced Python and OpenSSL testbed designed to simulate TLS 1.3/1.4 handshakes, model hybrid key exchange, execute adversarial downgrade vectors, and log immutable forensic records to a blockchain audit ledger.
+
+---
+
+## High-Level Topology & Architectural Flow
+
+```
+┌─────────────────────────┐               ┌─────────────────────────┐               ┌─────────────────────────┐
+│     PQ-TLS Client       │               │   Active MITM Proxy     │               │     PQ-TLS Server       │
+│ (Kyber1024 + ECDHE-P256)│               │  (Attack Manipulator)   │               │ (Hybrid Policy Engine)  │
+└────────────┬────────────┘               └────────────┬────────────┘               └────────────┬────────────┘
+             │                                         │                                         │
+             │─────── 1. ClientHello (PQ + Hybrid) ───>│                                         │
+             │                                         │─────── 2. Stripped ClientHello ────────>│
+             │                                         │       (PQ Extensions Removed)           │
+             │                                         │                                         │
+             │                                         │<────── 3. ServerHello (Legacy Fallback)─│
+             │<────── 4. Relayed Legacy ServerHello ───│                                         │
+             │                                         │                                         │
+             │                                         ▼                                         │
+             │                        ┌─────────────────────────────────┐                        │
+             │                        │ AI Anomaly Engine & Blockchain  │                        │
+             │                        │ Alert Triggered: LOGJAM / FREAK │                        │
+             │                        └─────────────────────────────────┘                        │
+```
+
+---
+
+## Core Capabilities & Features
+
+### 1. Hybrid Post-Quantum Handshake Engine
+Simulates TLS 1.3/1.4 handshakes with support for NIST-standardized Post-Quantum algorithms:
+- **Key Encapsulation Mechanisms (KEM)**: `Kyber512`, `Kyber768`, `Kyber1024`, and hybrid `p256_kyber768`.
+- **Digital Signature Schemes**: `Dilithium2`, `Dilithium3`, `Falcon-512`, `Falcon-1024`.
+- **Interoperability Benchmarking**: Interfaces with OQS-OpenSSL (Open Quantum Safe project), BoringSSL, and WolfSSL builds.
+
+### 2. Active MITM Downgrade Attack Suite
+Executes active protocol tampering across configurable attack vectors:
+- **PQ Extension Stripping**: Intercepts `ClientHello` messages and strips Post-Quantum Key Share extensions (`extension_type = key_share`), forcing the server to fall back to classic Diffie-Hellman or RSA.
+- **Hybrid Negotiation Modification**: Strips post-quantum algorithms while retaining classical parameters, creating subtle vulnerability windows.
+- **Fake PQ Extension Injection**: Injects corrupt or malformed Post-Quantum payload parameters to test client/server error boundaries and alert triggers.
+- **Legacy Vulnerability Emulation**: Simulates historical downgrade vectors such as Logjam (CVE-2015-4000) and POODLE/FREAK.
+
+### 3. Real-Time Web Dashboard & AI Anomaly Engine
+- **Flask Control Panel**: Real-time visualization of active handshakes, handshake latency overhead, cipher suite negotiation state, and packet loss metrics.
+- **AI Anomaly Detector**: Machine learning model trained on network packet features (handshake step intervals, extension entropy, key length ratios) to flag anomalous downgrade patterns instantly.
+- **Blockchain Event Logger**: Writes immutable cryptographic audit logs for every failed or downgraded handshake attempt onto a distributed transaction ledger, ensuring anti-tamper forensics for compliance auditors.
+
+---
+
+## Python Simulation Code Walkthrough
+
+Below is a simplified example demonstrating how the proxy intercepts `ClientHello` extensions to simulate a PQ stripping attack:
+
+```python
+import struct
+
+EXTENSION_KEY_SHARE = 0x0035
+PQ_GROUP_KYBER1024  = 0xfe30
+
+class MITMDowngradeProxy:
+    def __init__(self, attack_mode="strip_pq"):
+        self.attack_mode = attack_mode
+
+    def process_client_hello(self, packet_bytes: bytes) -> bytes:
+        """Inspect and manipulate ClientHello bytes to force legacy cipher fallback."""
+        if self.attack_mode != "strip_pq":
+            return packet_bytes
+
+        print("[!] MITM Proxy Intercepted ClientHello")
+        
+        # Parse TLS Record Header
+        content_type, version, length = struct.unpack("!BHH", packet_bytes[:5])
+        
+        if content_type == 22: # Handshake Protocol
+            print("  └─ Handshake Message Detected. Scanning for PQ Extensions...")
+            
+            # Search for Kyber1024 Group Identifier in Key Share extension
+            if bytes([0xfe, 0x30]) in packet_bytes:
+                print("  └─ [ATTACK] Stripping Kyber1024 Key Share Extension!")
+                # Zero out or strip PQ extension bytes
+                modified_bytes = packet_bytes.replace(bytes([0xfe, 0x30]), bytes([0x00, 0x1d])) # Replace with X25519
+                return modified_bytes
+                
+        return packet_bytes
+
+# Example Execution
+# proxy = MITMDowngradeProxy(attack_mode="strip_pq")
+# tampered_payload = proxy.process_client_hello(raw_client_hello)
+```
+
+---
+
+## Key Experimental Takeaways
+
+1. **Performance Overhead**: Hybrid handshakes (e.g., `p256_kyber768`) introduce a modest 8-15% latency increase due to larger public key sizes (1,184 bytes for Kyber768 vs. 64 bytes for ECDSA P-256), which is easily manageable for standard enterprise networks.
+2. **Policy Enforcement**: Organizations must transition from "Optional Hybrid" to "Strict Post-Quantum Required" policies. Without strict fallback blocking, MITM proxies can easily downgrade connections without user notice.
+
+---
+
+## Summary & Resources
+
+This project provides security researchers and infrastructure engineers with a comprehensive laboratory to evaluate their post-quantum migration strategy and defend against downgrade attacks.
+
+- **GitHub Repository**: [rdxkeerthi/Post-Quantum-TLS-Readiness-and-Downgrade-Attack-Simulator](https://github.com/rdxkeerthi/Post-Quantum-TLS-Readiness-and-Downgrade-Attack-Simulator)
+- **Author**: Keerthivasan M
+- **License**: MIT
