@@ -8,53 +8,40 @@ tags: ["zero-trust", "ebpf", "mcp", "security-sandbox", "go", "cryptography"]
 
 # NexisCore: Zero-Trust Runtime Sandbox & Cryptographic Attestation Engine
 
-Modern AI agentic workflows built on the **Model Context Protocol (MCP)** enable Large Language Models (LLMs) to execute tools, interact with file systems, query databases, and execute arbitrary code. However, this flexibility introduces high-risk threat vectors that legacy web application firewalls (WAFs) and enterprise Endpoint Detection and Response (EDR) tools are ill-equipped to handle:
+Modern AI agentic workflows built on the **Model Context Protocol (MCP)** enable Large Language Models (LLMs) to execute tools, interact with file systems, query databases, and execute arbitrary code. 
 
-- **Prompt Injection Execution**: Adversarial prompt payloads tricking agent tools into running privileged subshell commands.
-- **Context Exfiltration**: Unauthorized egress socket connections transmitting stolen session tokens or API keys to external attacker-controlled endpoints.
-- **Inter-Agent Lateral Movement**: Compromised worker agents corrupting shared context buffers or executing unauthorized RPC calls to neighboring internal services.
-- **Runtime Security Engine Tampering**: Attackers attaching debuggers (`ptrace`) or modifying executable memory mappings (`mprotect`) to bypass security hooks.
+<StatGrid>
+  <StatCard label="Attestation Lag" value="< 1.2ms" description="ECDSA P-256 validation" trend="Ultra-fast" />
+  <StatCard label="Egress Detection" value="100%" description="eBPF sys_enter_connect" />
+  <StatCard label="Memory Idle" value="< 25 MB" description="Lightweight Go runtime" />
+</StatGrid>
 
-**NexisCore** was engineered in Go to bridge this gap. It acts as an enterprise-grade **Zero-Trust Security Gateway and Runtime Containment Engine**, wrapping every MCP tool invocation inside a multi-layered cryptographic and kernel-isolated security envelope.
+<Callout type="cyber" title="Zero-Trust Boundary">
+NexisCore acts as a runtime gateway wrapping every MCP tool invocation inside a multi-layered cryptographic and kernel-isolated security envelope.
+</Callout>
 
 ---
 
-## Technical Architecture Overview
+## Technical Architecture & Enforcement Grid
 
-NexisCore sits directly between untrusted Agentic MCP Clients and host execution environments. The engine strictly decouples validation in user space from kernel-enforced process isolation.
+```mermaid
+graph TD
+    A[Agentic MCP Client Request] --> B[Cryptographic Attestation Gateway]
+    B -->|Verify ECDSA P-256 & Nonce| C[DLP & Exfiltration Scrubbing]
+    C -->|Sanitized Payload| D[gVisor Isolated Micro-VM]
+    
+    subgraph KernelSpace [eBPF Kernel Probes]
+        E1[sys_enter_connect Firewall]
+        E2[sys_enter_ptrace Anti-Tamper]
+        E3[sys_enter_openat VFS Guard]
+    end
 
-```
-[Agentic MCP Request]
-        │
-        ▼
-┌─────────────────────────────────┐
-│   Cryptographic Attestation     │  ECDSA P-256 signature + sliding window nonce cache
-│   (Provenance Validator)        │
-└───────────────┬─────────────────┘
-                │
-                ▼
-┌─────────────────────────────────┐
-│   Input Scrubbing + DLP         │  Regex lexer + 10-pattern DLP exfiltration pipeline
-│   (Egress Proxy Module)         │
-└───────────────┬─────────────────┘
-                │
-                ▼
-┌─────────────────────────────────┐
-│   gVisor / Docker Sandbox       │  Kernel-isolated Python execution (--network=none)
-│   (Sandbox Manager)             │
-└───────────────┬─────────────────┘
-                │
-        ┌───────┴────────┐
-        ▼                ▼
-  eBPF Firewall    eBPF Anti-Tamper
-  (connect/openat) (ptrace/mprotect/execve)
-        │                │
-        └───────┬─────────┘
-                ▼
-┌─────────────────────────────────┐
-│   OCSF Telemetry Engine         │  Async worker pool → Splunk HEC & Prometheus metrics
-│   + SIEM Forwarder              │
-└───────────────┴─────────────────┘
+    D -.-> E1
+    D -.-> E2
+    D -.-> E3
+    
+    D --> F[OCSF Telemetry Streamer]
+    F --> G[Splunk HEC / Prometheus Metrics]
 ```
 
 ---
@@ -63,35 +50,18 @@ NexisCore sits directly between untrusted Agentic MCP Clients and host execution
 
 ### 1. Cryptographic Provenance Attestation & Replay Prevention
 Every MCP tool request must include an **ECDSA P-256 digital signature**, a cryptographic nonce, and a UNIX epoch timestamp within its request manifest:
-
 - **ASN.1 Coordinate Decoding**: Decodes $(R, S)$ signature parameters and verifies them against the registered agent's public key.
 - **Epoch Drift Validation**: Rejects requests where the timestamp drifts beyond a strict configurable window (within 30 seconds) to defeat delayed playback attacks.
 - **Sliding-Window Nonce Cache**: Maintains a high-speed lock-free ring cache storing active nonces, instantly rejecting duplicate submissions.
 
 ### 2. eBPF-Powered Kernel Isolation & Tracepoint Monitoring
-While containers isolate namespaces, NexisCore attaches low-overhead **eBPF (Extended Berkeley Packet Filter)** kprobes and tracepoints directly inside the Linux kernel to intercept system calls from sandboxed agent processes:
-
+While containers isolate namespaces, NexisCore attaches low-overhead **eBPF** kprobes and tracepoints directly inside the Linux kernel:
 - **Network Egress Firewall (`sys_enter_connect`)**: If a sandboxed tool attempts to open a socket connection outside pre-approved allowlists, the eBPF program instantly triggers `bpf_send_signal(SIGKILL)`, terminating the process.
 - **Anti-Tampering Probes (`sys_enter_ptrace`, `sys_enter_mprotect`)**: Blocks debugger attachment or execution of self-modifying code pages within the attestation runtime itself.
-- **VFS File Interception (`sys_enter_openat`, `sys_enter_mount`)**: Prevents unauthorized file system traversals outside allocated workspace mount points.
-
-### 3. gVisor Container Sandboxing
-Tools are launched inside micro-VM or gVisor container environments with strict flags:
-- `--network=none` to enforce air-gapped network state by default.
-- Read-only root file systems (`--read-only`) with temporary, size-capped `/tmp` mounts.
-- Strict `cgroups v2` resource ceilings restricting CPU quotas and memory usage to eliminate Denial of Service (DoS) attacks.
-
-### 4. Data Loss Prevention (DLP) & OCSF Telemetry
-Before any payload leaves or enters the execution gateway, NexisCore runs a 10-pattern DLP scanning pipeline:
-- Identifies and masks private keys (RSA/EC), AWS Access Keys, OpenAI API tokens, JWTs, and personally identifiable information (PII).
-- Converts security events into the standard **Open Cybersecurity Schema Framework (OCSF)** format.
-- Dispatches structured telemetry via an asynchronous multi-worker queue directly to Splunk HEC or Prometheus metrics endpoints (`/api/v1/metrics`).
 
 ---
 
-## Key Go Implementation Highlights
-
-Below is a conceptual snippet illustrating how NexisCore enforces attestation prior to container scheduling:
+## Go Attestation Engine Snippet
 
 ```go
 package gateway
@@ -139,18 +109,8 @@ func (gw *Gateway) ValidateProvenance(m *AttestationManifest, pubKey *ecdsa.Publ
 
 ---
 
-## Results & Benchmark Analysis
-
-In benchmark evaluations running across multi-agent benchmarks:
-- **Attestation Overhead**: Less than 1.2ms latency added per tool invocation.
-- **Threat Interception**: 100% detection rate for unauthorized outbound socket attempts via eBPF.
-- **Resource Footprint**: NexisCore runs with under 25MB memory footprint in standby, making it suitable for edge deployments and enterprise Kubernetes clusters alike.
-
----
-
-## Summary & Next Steps
-
-NexisCore establishes a robust, zero-trust foundation for LLM agent workflows, ensuring that AI tool execution remains cryptographically verifiable, kernel-confined, and fully transparent to security operations teams.
+## Summary & Impact
 
 - **GitHub Repository**: [rdxkeerthi/NexisCore](https://github.com/rdxkeerthi/NexisCore)
+- **Primary Stack**: Go, eBPF (Cilium/ebpf), gVisor, OCSF
 - **License**: MIT

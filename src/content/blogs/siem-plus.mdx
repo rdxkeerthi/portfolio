@@ -24,39 +24,36 @@ Enterprise SIEMs frequently suffer from high ingestion licensing costs, sluggish
 
 ## Distributed Component Topology & Event Pipeline
 
-<Mermaid
-  title="SIEM-Plus Distributed Real-Time Telemetry & Threat Ingestion Grid"
-  chart={`
+```mermaid
 graph LR
-    subgraph Endpoints ["Endpoint Tier"]
-        A1[Linux eBPF Agent<br/>Rust Daemon]
-        A2[Windows EDR Agent<br/>WinAPI / Sysmon]
+    subgraph Endpoints [Endpoint Tier]
+        A1[Linux eBPF Agent]
+        A2[Windows EDR Agent]
     end
 
-    subgraph Ingestion ["Ingest & Routing Gateway"]
-        B[High-Throughput gRPC Gateway<br/>Kafka / Ring Buffer]
+    subgraph Ingestion [Ingestion Gateway]
+        B[High-Throughput gRPC Gateway]
     end
 
-    subgraph Processing ["Real-Time Detection Tier"]
-        C1[In-Memory Sigma Stream Engine<br/>Sub-15ms Rule Matching]
-        C2[OpenSearch Storage Indexer<br/>Hot / Warm / Cold Tiering]
+    subgraph Detection [Detection & Storage]
+        C1[Sigma Stream Engine]
+        C2[OpenSearch Cluster]
     end
 
-    subgraph Control ["SOC Operations & SOAR"]
-        D1[React & GraphQL Workbench<br/>Live Incident Triage]
-        D2[SOAR Playbook Automation<br/>Firewall Block / Host Isolation]
+    subgraph Response [SOC Operations]
+        D1[React GraphQL Workbench]
+        D2[SOAR Playbook Engine]
     end
 
-    A1 -->|TLS 1.3 Telemetry Stream| B
-    A2 -->|TLS 1.3 Telemetry Stream| B
+    A1 -->|gRPC Stream| B
+    A2 -->|gRPC Stream| B
     B --> C1
     B --> C2
-    C1 -->|Critical Alert Trigger| D1
-    C1 -->|Automated Response| D2
-    D2 -->|Isolate Host Action| A1
-    D2 -->|Isolate Host Action| A2
-`}
-/>
+    C1 -->|Critical Alert| D1
+    C1 -->|Trigger Playbook| D2
+    D2 -.->|Isolate Host| A1
+    D2 -.->|Isolate Host| A2
+```
 
 ---
 

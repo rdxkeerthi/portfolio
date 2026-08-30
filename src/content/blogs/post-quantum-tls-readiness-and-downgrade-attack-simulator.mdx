@@ -26,25 +26,22 @@ Nation-state adversaries and threat actors are intercepting and storing encrypte
 
 During the transition decade, infrastructure must operate in **Hybrid Modes** combining classical and post-quantum keys. This hybrid era exposes network channels to active Man-in-the-Middle (MITM) **Downgrade Attacks**, where attackers strip post-quantum extensions to force endpoints back into vulnerable legacy ciphersuites.
 
-<Mermaid
-  title="Sequence Flow: Active MITM PQ-KeyShare Stripping Attack"
-  chart={`
+```mermaid
 sequenceDiagram
     autonumber
-    actor Client as PQ-TLS Client<br/>(Kyber768 + X25519)
-    participant MITM as Active MITM Proxy<br/>(Adversarial Engine)
-    participant Server as PQ-TLS Server<br/>(Hybrid Policy Gateway)
-    participant AI as AI Anomaly Engine<br/>& Blockchain Ledger
+    actor Client as PQ-TLS Client (Kyber768 + X25519)
+    participant MITM as Active MITM Proxy (Adversarial Engine)
+    participant Server as PQ-TLS Server (Hybrid Policy Gateway)
+    participant AI as AI Anomaly Engine & Blockchain Ledger
 
     Client->>MITM: ClientHello (Includes Kyber768 + X25519 KeyShares)
-    Note over MITM: Deep Packet Inspection:<br/>Strip Kyber768 Extension (0xfe30)
+    Note over MITM: Deep Packet Inspection: Strip Kyber768 Extension
     MITM->>Server: Stripped ClientHello (Only Classical X25519)
     Server-->>MITM: ServerHello (Classical ECDHE Fallback Negotiated)
     MITM-->>Client: Relayed ServerHello (Fallback Accepted)
     MITM->>AI: Telemetry Stream Dispatched
-    Note over AI: Entropy Delta Drop Flagged (7.91 -> 5.82)<br/>Forensic Block Written to Ledger
-`}
-/>
+    Note over AI: Entropy Delta Drop Flagged | Forensic Block Written
+```
 
 ---
 

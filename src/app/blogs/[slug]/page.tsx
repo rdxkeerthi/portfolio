@@ -119,18 +119,46 @@ const components = {
       {...props}
     />
   ),
-  code: (props: any) => (
-    <code
-      className="bg-muted/50 text-cyan-400 px-1.5 py-0.5 rounded text-[15px] font-mono"
-      {...props}
-    />
-  ),
-  pre: (props: any) => (
-    <pre
-      className="bg-[#090d16] p-5 rounded-xl overflow-x-auto mb-8 border border-border/60 text-sm leading-relaxed font-mono shadow-xl text-slate-200"
-      {...props}
-    />
-  ),
+  code: ({ className, children, ...props }: any) => {
+    if (className === "language-mermaid" || className?.includes("mermaid")) {
+      return (
+        <Mermaid
+          chart={typeof children === "string" ? children : String(children || "")}
+        />
+      );
+    }
+    return (
+      <code
+        className="bg-muted/50 text-cyan-400 px-1.5 py-0.5 rounded text-[15px] font-mono"
+        {...props}
+      >
+        {children}
+      </code>
+    );
+  },
+  pre: ({ children, ...props }: any) => {
+    if (React.isValidElement(children)) {
+      const codeProps = children.props as any;
+      if (
+        codeProps?.className === "language-mermaid" ||
+        codeProps?.className?.includes("mermaid")
+      ) {
+        const rawChart =
+          typeof codeProps.children === "string"
+            ? codeProps.children
+            : String(codeProps.children || "");
+        return <Mermaid chart={rawChart} />;
+      }
+    }
+    return (
+      <pre
+        className="bg-[#090d16] p-5 rounded-xl overflow-x-auto mb-8 border border-border/60 text-sm leading-relaxed font-mono shadow-xl text-slate-200"
+        {...props}
+      >
+        {children}
+      </pre>
+    );
+  },
   a: (props: any) => (
     <a
       className="text-[hsl(20,100%,70%)] hover:text-[hsl(20,100%,80%)] underline decoration-[hsl(20,100%,70%)]/30 underline-offset-4 hover:decoration-[hsl(20,100%,70%)] transition-colors"

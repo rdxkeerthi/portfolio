@@ -24,29 +24,27 @@ Early detection of solitary pulmonary nodules (SPNs) and accurate malignancy ris
 
 ## Multimodal Fusion System Architecture
 
-<Mermaid
-  title="3D Isotropic CT & Genomic Biomarker Hybrid Flowchart"
-  chart={`
+```mermaid
 graph TD
-    subgraph PatientInput ["Multimodal Ingestion"]
-        A1[DICOM Thoracic CT Scans<br/>3D Isotropic Voxel Volume]
-        A2[Genomic Mutation Panel<br/>EGFR, KRAS, ALK Status]
-        A3[Clinical Demographics<br/>Age, Smoking Pack-Years]
+    subgraph Ingestion [Multimodal Data Ingestion]
+        A1[DICOM Thoracic CT Scans]
+        A2[Genomic Mutation Panel]
+        A3[Clinical Demographics]
     end
 
-    subgraph DeepLearning ["Neural Feature Extractors"]
-        B1[3D Volumetric CNN Trunk<br/>Voxel Spatial Features]
-        B2[2D PACS Slice Segmenter<br/>Lesion Area mm² & Morphological HU]
-        B3[Genomic Projection MLP<br/>Tabular Mutation Embedding]
+    subgraph DeepLearning [Neural Feature Extractors]
+        B1[3D Volumetric CNN Trunk]
+        B2[2D PACS Slice Segmenter]
+        B3[Genomic Projection MLP]
     end
 
-    subgraph Fusion ["Cross-Attention Fusion Network"]
-        C[Cross-Modal Tensor Concatenation<br/>Grad-CAM XAI Attention Weights]
+    subgraph Fusion [Cross-Attention Fusion]
+        C[Cross-Modal Tensor Fusion<br/>Grad-CAM XAI Weights]
     end
 
-    subgraph Decision ["Clinical Decision Support"]
-        D1[Malignancy Risk Score: 0 - 100%]
-        D2[Fleischner Guideline Action Plan<br/>Biopsy vs. Follow-up Low-Dose CT]
+    subgraph Decision [Clinical Output]
+        D1[Malignancy Risk: 0-100%]
+        D2[Fleischner Clinical Action Plan]
     end
 
     A1 --> B1
@@ -58,8 +56,7 @@ graph TD
     B3 --> C
     C --> D1
     C --> D2
-`}
-/>
+```
 
 ---
 

@@ -3,19 +3,21 @@
 import React, { useEffect, useId, useState } from "react";
 
 export function Mermaid({
-  chart,
+  chart = "",
   title,
 }: {
-  chart: string;
+  chart?: string;
   title?: string;
 }) {
   const id = useId().replace(/:/g, "_");
   const [svgContent, setSvgContent] = useState<string>("");
   const [hasError, setHasError] = useState(false);
 
+  const cleanChart = (typeof chart === "string" ? chart : "").trim();
+
   useEffect(() => {
+    if (!cleanChart) return;
     let isMounted = true;
-    const cleanChart = chart.trim();
 
     async function renderChart() {
       try {
@@ -68,12 +70,14 @@ export function Mermaid({
     return () => {
       isMounted = false;
     };
-  }, [chart, id]);
+  }, [cleanChart, id]);
+
+  if (!cleanChart) return null;
 
   if (hasError) {
     return (
       <div className="my-8 rounded-2xl border border-rose-500/30 bg-slate-950/80 p-5 shadow-xl">
-        <pre className="font-mono text-xs text-rose-400 overflow-x-auto">{chart}</pre>
+        <pre className="font-mono text-xs text-rose-400 overflow-x-auto">{cleanChart}</pre>
       </div>
     );
   }
