@@ -7,9 +7,11 @@ import { Download, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ResumeDoodle from "./resume-doodle";
 
-const RESUME_PATH = "/assets/CV-Photo.pdf";
+const RESUME_PATH = "/assets/Keerthivasan - Resume.pdf";
 
 export default function ResumeView() {
+  const resumeSrc = `${encodeURI(RESUME_PATH)}#toolbar=0&navpanes=0&view=FitH`;
+
   return (
     <div className="flex min-h-screen flex-col font-sans">
       {/* Hide the global nav on mobile, only while this page is mounted */}
@@ -37,8 +39,8 @@ export default function ResumeView() {
           </Link>
           <Button>
             <a
-              href={RESUME_PATH}
-              download
+              href={encodeURI(RESUME_PATH)}
+              download="Keerthivasan-Resume.pdf"
               className="flex gap-2 text-sm transition-colors hover:text-foreground"
             >
               <Download className="h-4 w-4 transition-transform group-hover:translate-y-0.5" />
@@ -58,7 +60,7 @@ export default function ResumeView() {
           className="aspect-[210/297] w-full overflow-hidden rounded-2xl bg-white shadow-xl"
         >
           <ResumeDoodle
-            src={`${RESUME_PATH}#toolbar=0&navpanes=0&view=FitH`}
+            src={resumeSrc}
             title="Keerthivasan M — Résumé"
           />
         </motion.div>
