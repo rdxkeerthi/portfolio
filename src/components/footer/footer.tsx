@@ -7,7 +7,7 @@ import { config } from "@/data/config";
 
 function CopyrightYear() {
   const year = new Date().getFullYear();
-  return <>{year}</>;
+  return <span>{year}</span>;
 }
 
 function Footer() {

@@ -13,8 +13,9 @@ import { usePerfProfile } from "@/hooks/use-perf-profile";
 export default function AppOverlays() {
   const pathname = usePathname();
   const isHome = pathname === "/";
-  // The résumé route disables the elastic cursor (keeps the particle bg).
+  // The résumé and spotify routes disable the elastic cursor
   const isResume = pathname?.startsWith("/resume") ?? false;
+  const isSpotify = pathname?.startsWith("/spotify") ?? false;
 
   const { particleCount, maxDpr, disableDecorative } = usePerfProfile();
 
@@ -29,7 +30,7 @@ export default function AppOverlays() {
       )}
       {isHome && <RemoteCursors />}
       <EasterEggs />
-      {!isResume && !disableDecorative && <ElasticCursor />}
+      {!isResume && !isSpotify && !disableDecorative && <ElasticCursor />}
       {isHome && <MotionNudge />}
       <DomainNotice />
       <Analytics />

@@ -3,7 +3,7 @@
 import { useInView } from "motion/react";
 import React, { useRef } from "react";
 import { Button } from "../ui/button";
-import { SiGithub, SiInstagram, SiX } from "react-icons/si";
+import { SiGithub, SiSpotify, SiX } from "react-icons/si";
 import { FaLinkedin } from "react-icons/fa6";
 import { config } from "@/data/config";
 import Link from "next/link";
@@ -25,9 +25,9 @@ const BUTTONS = [
     icon: <SiX size={"24"} color={"#fff"} />,
   },
   {
-    name: "Instagram",
-    href: config.social.instagram,
-    icon: <SiInstagram size={"24"} color={"#fff"} />,
+    name: "Spotify",
+    href: config.social.spotify,
+    icon: <SiSpotify size={"24"} color={"#1DB954"} />,
   },
 ];
 
@@ -35,13 +35,25 @@ const SocialMediaButtons = () => {
   const ref = useRef<HTMLDivElement>(null);
   const show = useInView(ref, { once: true });
   return (
-    <div ref={ref} className="z-10">
+    <div ref={ref} className="z-10 flex items-center">
       {show &&
-        BUTTONS.map((button) => (
-          <Link href={button.href} key={button.name} target="_blank">
-            <Button variant={"ghost"}>{button.icon}</Button>
-          </Link>
-        ))}
+        BUTTONS.map((button) => {
+          const isInternal = button.href.startsWith("/");
+          return (
+            <Link
+              href={button.href}
+              key={button.name}
+              target={isInternal ? undefined : "_blank"}
+              rel={isInternal ? undefined : "noopener noreferrer"}
+              title={button.name}
+              aria-label={button.name}
+            >
+              <Button variant={"ghost"} size="icon" aria-label={button.name}>
+                {button.icon}
+              </Button>
+            </Link>
+          );
+        })}
     </div>
   );
 };
