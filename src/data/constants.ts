@@ -243,17 +243,30 @@ export type Experience = {
   id: number;
   startDate: string;
   endDate: string;
+  period: string;
+  roleType: string;
+  category: string;
+  location: string;
   title: string;
   company: string;
+  logo: string;
   description: string[];
   skills: SkillNames[];
+  metrics?: { label: string; value: string }[];
+  accentColor?: string;
 };
 
 export const EXPERIENCE: Experience[] = [
   {
     id: 1,
-    startDate: "",
-    endDate: "",
+    startDate: "2024-05",
+    endDate: "2024-07",
+    period: "May 2024 – Jul 2024",
+    roleType: "Law Enforcement / IR",
+    category: "Malware Forensics & Threat Intel",
+    location: "Chennai, India",
+    accentColor: "#38bdf8",
+    logo: "/assets/experience/ccw.png",
     title: "Cyber Security Intern (Malware Analysis)",
     company: "Tamil Nadu Cyber Crime Wing",
     description: [
@@ -268,11 +281,22 @@ export const EXPERIENCE: Experience[] = [
       SkillNames.JS,
       SkillNames.EXPRESS,
     ],
+    metrics: [
+      { label: "Triage Speedup", value: "80%" },
+      { label: "IR Backlog Cut", value: "40%" },
+      { label: "Target Scope", value: "State LEA" },
+    ],
   },
   {
     id: 2,
-    startDate: "",
-    endDate: "",
+    startDate: "2023-08",
+    endDate: "2024-04",
+    period: "Aug 2023 – Apr 2024",
+    roleType: "Application Security",
+    category: "Cloud Security & DevSecOps",
+    location: "Chennai, India",
+    accentColor: "#34d399",
+    logo: "/assets/experience/saveetha.png",
     title: "Security Lead",
     company: "High-Traffic Web Platform, SEC",
     description: [
@@ -286,11 +310,22 @@ export const EXPERIENCE: Experience[] = [
       SkillNames.GCP,
       SkillNames.DOCKER,
     ],
+    metrics: [
+      { label: "Active Users", value: "6,000+" },
+      { label: "Daily Requests", value: "50,000+" },
+      { label: "Security Breaches", value: "0" },
+    ],
   },
   {
     id: 3,
-    startDate: "",
-    endDate: "",
+    startDate: "2023-05",
+    endDate: "2023-07",
+    period: "May 2023 – Jul 2023",
+    roleType: "Security Operations",
+    category: "SIEM & SOC Operations",
+    location: "Chennai, India",
+    accentColor: "#818cf8",
+    logo: "/assets/experience/zybeak-fav.png",
     title: "SOC Analyst Intern",
     company: "Zybeak Technologies",
     description: [
@@ -304,11 +339,22 @@ export const EXPERIENCE: Experience[] = [
       SkillNames.JS,
       SkillNames.TS,
     ],
+    metrics: [
+      { label: "Syslog Events", value: "10M+" },
+      { label: "False Positive Cut", value: "30%" },
+      { label: "Detection Engine", value: "Sigma Rules" },
+    ],
   },
   {
     id: 4,
-    startDate: "",
-    endDate: "",
+    startDate: "2021-08",
+    endDate: "2025-05",
+    period: "2021 – 2025",
+    roleType: "Academics & Research",
+    category: "Undergraduate Degree",
+    location: "Chennai, India",
+    accentColor: "#f59e0b",
+    logo: "/assets/experience/saveetha.png",
     title: "B.E. in Cyber Security",
     company: "Saveetha Engineering College",
     description: [
@@ -321,6 +367,11 @@ export const EXPERIENCE: Experience[] = [
       SkillNames.POSTGRES,
       SkillNames.NODEJS,
       SkillNames.GIT,
+    ],
+    metrics: [
+      { label: "Degree", value: "B.E. Cyber Sec" },
+      { label: "Research", value: "PQC & ML" },
+      { label: "Activities", value: "CTF & Labs" },
     ],
   },
 ];
