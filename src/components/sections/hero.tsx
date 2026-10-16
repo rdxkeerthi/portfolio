@@ -34,7 +34,7 @@ const HeroSection = () => {
           {!isLoading && (
             <div className="flex flex-col">
               <div>
-                <BlurIn delay={0.7}>
+                <BlurIn delay={0.1}>
                   <p
                     className={cn(
                       "md:self-start mt-4 font-medium text-md text-slate-500 dark:text-zinc-400",
@@ -46,7 +46,7 @@ const HeroSection = () => {
                   </p>
                 </BlurIn>
 
-                <BlurIn delay={1}>
+                <BlurIn delay={0.25}>
                   <Tooltip delayDuration={300}>
                     <TooltipTrigger asChild>
                       <h1
@@ -70,7 +70,7 @@ const HeroSection = () => {
                   </Tooltip>
                 </BlurIn>
                 {/* <div className="md:block hidden bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0 w-screen h-px animate-fade-right animate-glow" /> */}
-                <BlurIn delay={1.2}>
+                <BlurIn delay={0.4}>
                   <p
                     className={cn(
                       "md:self-start md:mt-4 font-medium text-md text-slate-500 dark:text-zinc-400",

@@ -22,12 +22,10 @@ function SmoothScroll({ children, isInsideModal = false }: LenisProps) {
 
   useEffect(() => {
     if (!lenis) return;
-    // Drive Lenis from GSAP's ticker (its own RAF is off via autoRaf below) so
-    // scroll and ScrollTrigger share one clock; kill lag smoothing so a dropped
-    // frame can't skip a large scroll delta.
+    // Drive Lenis from GSAP's ticker with balanced lag smoothing so dropped frames don't stutter
     const raf = (time: number) => lenis.raf(time * 1000);
     gsap.ticker.add(raf);
-    gsap.ticker.lagSmoothing(0);
+    gsap.ticker.lagSmoothing(500, 33);
     return () => gsap.ticker.remove(raf);
   }, [lenis]);
 
@@ -36,7 +34,13 @@ function SmoothScroll({ children, isInsideModal = false }: LenisProps) {
       root
       autoRaf={false}
       options={{
-        duration: 2,
+        duration: 1.15,
+        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: "vertical",
+        gestureOrientation: "vertical",
+        wheelMultiplier: 1.05,
+        touchMultiplier: 1.0,
+        syncTouch: false,
         prevent: (node) => {
           if (isInsideModal) return true;
           const modalOpen = node.classList.contains("modall");

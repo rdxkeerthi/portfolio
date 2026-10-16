@@ -22,9 +22,19 @@ const ExperienceSection = () => {
       id="experience"
       className="flex flex-col items-center justify-center min-h-screen py-24 md:py-36 px-4 sm:px-6 relative"
     >
-      {/* Background Ambient Glows */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[850px] h-[450px] bg-sky-500/10 dark:bg-sky-500/15 rounded-full blur-[160px] pointer-events-none -z-10" />
-      <div className="absolute bottom-1/3 right-10 w-[650px] h-[380px] bg-emerald-500/10 dark:bg-emerald-500/15 rounded-full blur-[150px] pointer-events-none -z-10" />
+      {/* Background Ambient Glows - Hardware-accelerated radial gradients (0 gaussian filter passes) */}
+      <div
+        className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[850px] h-[450px] pointer-events-none -z-10"
+        style={{
+          background: "radial-gradient(ellipse at center, rgba(56, 189, 248, 0.12), transparent 70%)",
+        }}
+      />
+      <div
+        className="absolute bottom-1/3 right-10 w-[650px] h-[380px] pointer-events-none -z-10"
+        style={{
+          background: "radial-gradient(ellipse at center, rgba(16, 185, 129, 0.12), transparent 70%)",
+        }}
+      />
 
       <div ref={containerRef} className="w-full max-w-4xl mx-auto">
         <SectionHeader
@@ -74,7 +84,6 @@ const StackCardItem = ({
   });
 
   // Calculate sticky top offset so cards neatly stack on top of each other
-  // Mobile: 4.5rem base + 16px step | Desktop: 6rem base + 24px step
   const topOffsetDesktop = `calc(5.5rem + ${index * 24}px)`;
 
   return (
@@ -87,7 +96,7 @@ const StackCardItem = ({
       }}
     >
       <motion.div
-        className="w-full origin-top"
+        className="w-full origin-top will-change-transform"
         style={{
           scale: useTransform(scrollYProgress, [0, 1], [0.95, 1]),
         }}
@@ -98,7 +107,7 @@ const StackCardItem = ({
   );
 };
 
-const ModernStackedCard = ({
+const ModernStackedCard = React.memo(({
   experience,
   index,
   total,
@@ -108,16 +117,15 @@ const ModernStackedCard = ({
   total: number;
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
-  const [mousePos, setMousePos] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
 
+  // Directly mutate CSS custom properties: 0 React re-renders on mousemove
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    setMousePos({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    });
+    const el = cardRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    el.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
+    el.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
   };
 
   const accent = experience.accentColor || "#38bdf8";
@@ -144,14 +152,14 @@ const ModernStackedCard = ({
         className="pointer-events-none absolute inset-0 rounded-3xl transition-opacity duration-500 -z-10"
         style={{
           opacity: isHovered ? 1 : 0,
-          background: `radial-gradient(600px circle at ${mousePos.x}px ${mousePos.y}px, ${accent}90, rgba(255,255,255,0.12) 40%, transparent 80%)`,
+          background: `radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), ${accent}90, rgba(255,255,255,0.12) 40%, transparent 80%)`,
         }}
       />
 
       {/* Card Inner Body - Solid High Contrast Glass to prevent see-through overlapping text */}
       <div
         className={cn(
-          "relative rounded-3xl h-full p-6 sm:p-8 md:p-9 backdrop-blur-3xl transition-all duration-300 overflow-hidden",
+          "relative rounded-3xl h-full p-6 sm:p-8 md:p-9 backdrop-blur-xl transition-all duration-300 overflow-hidden",
           "bg-zinc-950/95 text-zinc-100 border border-white/10"
         )}
       >
@@ -169,7 +177,7 @@ const ModernStackedCard = ({
         <div
           className="pointer-events-none absolute inset-0 rounded-3xl transition-opacity duration-500 opacity-0 group-hover:opacity-100"
           style={{
-            background: `radial-gradient(700px circle at ${mousePos.x}px ${mousePos.y}px, ${accent}12, transparent 65%)`,
+            background: `radial-gradient(700px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), ${accent}12, transparent 65%)`,
           }}
         />
 
@@ -337,7 +345,8 @@ const ModernStackedCard = ({
       </div>
     </div>
   );
-};
+});
+ModernStackedCard.displayName = "ModernStackedCard";
 
 /**
  * Highlights key metrics and percentages (e.g. 80%, 40%, 6,000+, 10M+, 50,000+) in description text for enhanced scanability.

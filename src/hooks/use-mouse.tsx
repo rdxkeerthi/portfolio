@@ -32,6 +32,6 @@ export const useMouse = ({
     if (typeof window !== "undefined")
       window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
-  });
+  }, [allowPage, allowAcc, allowAngle]);
   return { x, y, angle, acceleration };
 };

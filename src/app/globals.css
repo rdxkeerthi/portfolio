@@ -2,8 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
 body {
-  scroll-behavior: smooth;
+  /* Lenis handles smooth scrolling via RAF; native scroll-behavior: smooth causes severe fight/lag */
+  scroll-behavior: auto !important;
 }
 
 @layer base {

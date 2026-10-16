@@ -16,23 +16,10 @@ export const SPOTIFY_USER = {
   name: "rdxkeerthi",
   profileUrl: "https://open.spotify.com/user/l6iz7mcjij5oa9utyez8ieumy?si=fb4d33c686dc467d",
   avatar: "https://i.scdn.co/image/ab6775700000ee85c243beb5170446a062b64d5e",
-  playlistCount: 9,
+  playlistCount: 8,
 };
 
 export const USER_PLAYLISTS: SpotifyPlaylist[] = [
-  {
-    id: "3YocSr3WZRpbX6pkkUp1no",
-    title: "For Priya 🫶💖",
-    image: "https://image-cdn-fa.spotifycdn.com/image/ab67706c0000da84b731444b59b31dbf47d44a22",
-    description: "Heartfelt acoustic melodies, emotional vocals, and favorite romantic tracks.",
-    url: "https://open.spotify.com/playlist/3YocSr3WZRpbX6pkkUp1no",
-    uri: "spotify:playlist:3YocSr3WZRpbX6pkkUp1no",
-    embedSrc: "https://open.spotify.com/embed/playlist/3YocSr3WZRpbX6pkkUp1no?utm_source=generator&theme=0&si=d6d6d473f7cf456f",
-    embedCode: `<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/3YocSr3WZRpbX6pkkUp1no?utm_source=generator&theme=0&si=d6d6d473f7cf456f" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`,
-    category: "Special Collection",
-    badge: "Featured",
-    vibe: "Romantic & Melodic",
-  },
   {
     id: "31czkHPM03PZyb9aggcS9u",
     title: "Paadal Pangu 🎵🌸✨",
@@ -43,7 +30,7 @@ export const USER_PLAYLISTS: SpotifyPlaylist[] = [
     embedSrc: "https://open.spotify.com/embed/playlist/31czkHPM03PZyb9aggcS9u?utm_source=generator&theme=0",
     embedCode: `<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/31czkHPM03PZyb9aggcS9u?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`,
     category: "Classics & Vibes",
-    badge: "Popular",
+    badge: "Featured",
     vibe: "Euphoric & Chill",
   },
   {

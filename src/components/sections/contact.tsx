@@ -23,7 +23,7 @@ const ContactSection = () => {
         </>} />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 z-[9999] mx-4">
         {/* Contact Form Card */}
-        <Card className="min-w-7xl bg-white/70 dark:bg-black/70 backdrop-blur-sm rounded-xl mt-10 md:mt-20">
+        <Card className="w-full bg-white/70 dark:bg-black/70 backdrop-blur-sm rounded-xl mt-10 md:mt-20">
           <CardHeader>
             <CardTitle className="text-4xl">Contact Form</CardTitle>
             <CardDescription>
@@ -45,7 +45,7 @@ const ContactSection = () => {
         </Card>
 
         {/* SOC Telemetry Card — exact same card size & color */}
-        <Card className="min-w-7xl bg-white/70 dark:bg-black/70 backdrop-blur-sm rounded-xl mt-10 md:mt-20">
+        <Card className="w-full bg-white/70 dark:bg-black/70 backdrop-blur-sm rounded-xl mt-10 md:mt-20">
           <CardHeader>
             <CardTitle className="text-4xl">SOC Telemetry</CardTitle>
             <CardDescription>

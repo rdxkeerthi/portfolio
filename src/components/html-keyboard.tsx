@@ -68,7 +68,7 @@ interface KeycapProps {
   onPress: (skill: Skill) => void;
 }
 
-const Keycap = ({ skill, keyChar, isActive, onHover, onLeave, onPress }: KeycapProps) => {
+const Keycap = React.memo(({ skill, keyChar, isActive, onHover, onLeave, onPress }: KeycapProps) => {
   const [pressed, setPressed] = useState(false);
   const base = KEYCAP_BASE[skill.name] ?? "#111827";
   const top = KEYCAP_TOP[skill.name] ?? "#1e3a5f";
@@ -169,7 +169,8 @@ const Keycap = ({ skill, keyChar, isActive, onHover, onLeave, onPress }: KeycapP
       </span>
     </button>
   );
-};
+});
+Keycap.displayName = "Keycap";
 
 // ─── HTMLKeyboard ─────────────────────────────────────────────────────────────
 export const HTMLKeyboard = () => {
@@ -281,6 +282,7 @@ export const HTMLKeyboard = () => {
       onEnter: () => {
         setActiveSection("projects");
         setActiveSkill(null);
+        pauseHero();
         gsap.to(kbd, {
           scale: isMobile ? 0.58 : 0.65,
           x: 0, y: isMobile ? 80 : 60,
@@ -290,6 +292,7 @@ export const HTMLKeyboard = () => {
       },
       onLeaveBack: () => {
         setActiveSection("skills");
+        pauseHero();
         gsap.to(kbd, {
           scale: isMobile ? 0.90 : 1.04,
           x: 0, y: isMobile ? -20 : -10,
@@ -306,6 +309,7 @@ export const HTMLKeyboard = () => {
       onEnter: () => {
         setActiveSection("contact");
         setActiveSkill(null);
+        pauseHero();
         gsap.to(kbd, {
           scale: 0.45,
           x: isMobile ? 0 : 320,
@@ -316,6 +320,7 @@ export const HTMLKeyboard = () => {
       },
       onLeaveBack: () => {
         setActiveSection("projects");
+        pauseHero();
         gsap.to(kbd, {
           scale: isMobile ? 0.58 : 0.65,
           x: 0, y: isMobile ? 80 : 60,
@@ -364,8 +369,8 @@ export const HTMLKeyboard = () => {
       {/* GSAP target wrapper — no Tailwind translate; GSAP owns xPercent/yPercent */}
       <div
         ref={keyboardRef}
-        className="absolute top-1/2 left-1/2"
-        style={{ transformStyle: "preserve-3d" }}
+        className="absolute top-1/2 left-1/2 will-change-transform"
+        style={{ transformStyle: "preserve-3d", willChange: "transform" }}
       >
         {/* Keyboard chassis */}
         <div
